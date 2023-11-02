@@ -1,0 +1,22 @@
+.my_title {
+  color: rgb(255, 255, 255);
+  margin: 6px;
+  font-weight: bold;
+  font-size: 23px;
+}
+.my_image {
+  width: 50%;
+}
+.brand-app {
+  display: flex;
+  align-items: center;
+}
+
+.my_image,
+.my_title {
+  flex: 0.5;
+}
+
+.my_title {
+  margin-left: 2px;
+}
