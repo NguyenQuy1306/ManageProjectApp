@@ -22,5 +22,18 @@
   margin-left: 30px;
 }
 .sidebar a:hover {
-  background-color: #4c4c55;
+  background-color: #83838a;
+}
+.dropdowlist {
+  color: white;
+  margin-top: 0px;
+}
+
+.List {
+  color: #07064a;
+  background-color: #07064a;
+  height: 100%;
+  width: 100%;
+  margin-top: -4%;
+  margin-bottom: -4%;
 }
