@@ -10,45 +10,53 @@ export const SidebarData = [
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: "Users",
-        // path: "/overview/users",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Revenue",
-        // path: "/overview/revenue",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
+    path: "/Homepage",
   },
   {
     title: "Projects",
-    // path: "/reports",
     icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
-
     subNav: [
       {
         title: "Project 1",
-        // path: "/reports/reports1",
         icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        path: "/project1",
+        subsubNav: [
+          {
+            title: "Section 1",
+            path: "/project1/section_1",
+            icon: <IoIcons.IoIosPaper />,
+          },
+          {
+            title: "Section 2",
+            path: "/project1/section_2",
+            icon: <IoIcons.IoIosPaper />,
+          },
+        ],
       },
       {
         title: "Project 2",
-        // path: "/reports/reports2",
         icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        path: "/project2",
+        subsubNav: [
+          {
+            title: "Section 1",
+            // path: "/messages/message1/submessage1",
+            icon: <IoIcons.IoIosPaper />,
+          },
+          {
+            title: "Section 2",
+            // path: "/messages/message1/submessage2",
+            icon: <IoIcons.IoIosPaper />,
+          },
+        ],
       },
-      {
-        title: "Project 3",
-        // path: "/reports/reports3",
-        icon: <IoIcons.IoIosPaper />,
-      },
+      // other subNav items...
     ],
   },
   {
@@ -63,23 +71,47 @@ export const SidebarData = [
   },
   {
     title: "Messages",
-    // path: "/messages",
-    icon: <FaIcons.FaEnvelopeOpenText />,
-
+    icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
-
     subNav: [
       {
         title: "Message 1",
-        // path: "/messages/message1",
         icon: <IoIcons.IoIosPaper />,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subsubNav: [
+          {
+            title: "SubMessage 1",
+            // path: "/messages/message1/submessage1",
+            icon: <IoIcons.IoIosPaper />,
+          },
+          {
+            title: "SubMessage 2",
+            // path: "/messages/message1/submessage2",
+            icon: <IoIcons.IoIosPaper />,
+          },
+        ],
       },
       {
         title: "Message 2",
-        // path: "/messages/message2",
         icon: <IoIcons.IoIosPaper />,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subsubNav: [
+          {
+            title: " 1",
+            // path: "/messages/message1/submessage1",
+            icon: <IoIcons.IoIosPaper />,
+          },
+          {
+            title: " 2",
+            // path: "/messages/message1/submessage2",
+            icon: <IoIcons.IoIosPaper />,
+          },
+        ],
       },
+      // other subNav items...
     ],
   },
   {

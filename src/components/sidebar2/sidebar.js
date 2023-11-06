@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./sidebardata";
 import SubMenu from "./submenu";
 import { IconContext } from "react-icons/lib";
 import BrandApp from "../sidebar/logo";
+import * as IoIcons from "react-icons/io";
+import * as RiIcons from "react-icons/ri";
 const Nav = styled.div`
   background: #07064a;
   height: 80px;
@@ -41,28 +41,55 @@ const SidebarWrap = styled.div`
   width: 100%;
 `;
 
+// ... (other imports and components)
+
 const Sidebarr = () => {
   const [sidebar, setSidebar] = useState(true);
+  const [newSubNavTitle, setNewSubNavTitle] = useState("");
+  //const [newSubNavIcon, setNewSubNavIcon] = useState("");
 
-  const showSidebar = () => setSidebar(!sidebar);
+  const handleAddSubNav = () => {
+    // Create a new subNav object
+    const newSubNav = {
+      title: newSubNavTitle,
+      icon: <IoIcons.IoIosPaper />,
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+    };
+
+    // Add the new subNav to the Projects section in SidebarData
+    SidebarData[1].subNav.push(newSubNav); // Assuming Projects is at index 1
+
+    // Clear the input fields
+    setNewSubNavTitle("");
+    // setNewSubNavIcon("");
+  };
 
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
-        {/* <Nav>
-          <NavIcon to="#">
-            <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon>
-        </Nav> */}
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
-            {/* <NavIcon to="#">
-              <AiIcons.AiOutlineClose onClick={showSidebar} />
-            </NavIcon> */}
             <BrandApp></BrandApp>
             {SidebarData.map((item, index) => {
               return <SubMenu item={item} key={index} />;
             })}
+            {/* Add subnav item form */}
+            <div>
+              <input
+                type="text"
+                placeholder="SubNav Title"
+                value={newSubNavTitle}
+                onChange={(e) => setNewSubNavTitle(e.target.value)}
+              />
+              {/* <input
+                type="text"
+                placeholder="SubNav Icon"
+                value={newSubNavIcon}
+                onChange={(e) => setNewSubNavIcon(e.target.value)}
+              /> */}
+              <button onClick={handleAddSubNav}>Add SubNav</button>
+            </div>
           </SidebarWrap>
         </SidebarNav>
       </IconContext.Provider>

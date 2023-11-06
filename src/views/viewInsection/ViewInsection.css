@@ -1,0 +1,19 @@
+.section {
+  align-items: center;
+}
+.div {
+  z-index: 12;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.searchbar {
+  position: fixed;
+  top: 5%;
+  right: 0;
+  width: 50%;
+  height: 5%;
+  background-color: #ffffff;
+  z-index: 10;
+  transform: translateY(0%);
+}

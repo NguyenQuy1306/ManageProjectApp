@@ -1,10 +1,10 @@
 import "./App.css";
 import { Routes, Route, BrowserRouter, useNavigate } from "react-router-dom";
 import Login from "./views/login/login";
-import Calendarr from "./components/calendar/calendar";
 import Sidebar from "./components/sidebar2/sidebar";
-// import Calendarr from "../src/components/calendar/calendar";
+import Viewsection from "./views/viewInsection/ViewInsection";
 import Homepage from "./views/hompage/homepage";
+import Viewproject from "./views/viewInproject/ViewInproject";
 function App() {
   return (
     <BrowserRouter>
@@ -12,7 +12,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/Homepage" element={<Homepage />} />
+          <Route path="/Homepage" element={<Homepage />} />
           <Route path="/home" element={<Sidebar />} />
+          <Route path="/project1" exact element={<Viewproject />} />
+          <Route path="/project2" exact element={<Viewproject />} />
+          <Route path="/project1/section_1" exact element={<Viewsection />} />
+          <Route path="/project1/section_2" exact element={<Viewsection />} />
         </Routes>
       </div>
     </BrowserRouter>

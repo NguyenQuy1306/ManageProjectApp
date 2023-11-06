@@ -1,0 +1,27 @@
+/* Style the "Today" button in the calendar header */
+.rbc-btn-group .rbc-current {
+  background-color: #007bff; /* Background color */
+  color: #fff; /* Text color */
+  border: 1px solid #007bff; /* Border color */
+  border-radius: 4px; /* Border radius */
+  padding: 6px 12px; /* Padding */
+  margin-right: 10px; /* Margin to separate it from other buttons */
+  cursor: pointer;
+}
+
+/* Hover effect for the "Today" button */
+.rbc-btn-group .rbc-current:hover {
+  background-color: #0056b3; /* Hover background color */
+  border-color: #0056b3; /* Hover border color */
+}
+
+/* Active effect for the "Today" button */
+.rbc-btn-group .rbc-current:active {
+  background-color: #003d80; /* Active background color */
+  border-color: #003d80; /* Active border color */
+}
+
+/* Style the text inside the "Today" button */
+.rbc-btn-group .rbc-current span {
+  margin-right: 5px; /* Margin between the icon and text */
+}

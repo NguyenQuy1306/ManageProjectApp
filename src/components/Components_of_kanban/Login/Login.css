@@ -1,0 +1,435 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+.login-page {
+  /* background: rgb(34,193,195); */
+  /* background: linear-gradient(135deg, rgb(9, 94, 231) 0%,     rgb(3, 23, 242) 100%); */
+  margin: 0;
+  padding: 0;
+  font-family: "work sans";
+  /* background-image: url("https://img.freepik.com/free-photo/ecology-friendly-energy-environment-sustainable-concept_53876-120923.jpg?w=996&t=st=1681267277~exp=1681267877~hmac=3ba7dede5d98a5c033b82f8038ca1ba926eacc12ff2832f69f17adea68b4178c"); */
+  /* background-image: url("https://e1.pxfuel.com/desktop-wallpaper/407/1022/desktop-wallpaper-website-backgrounds-login-page.jpg"); */
+
+  background-size: cover;
+}
+
+html {
+  font-size: 100%;
+}
+
+#Login {
+  margin: 0 auto;
+  margin-top: 70px;
+  max-width: 400px;
+  padding: 40px 40px;
+  background-color: #fff;
+  /* background: linear-gradient(135deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%); */
+}
+
+#loginform {
+  max-width: 500px;
+  min-width: 300px;
+  max-height: 700px;
+  width: 30%;
+  height: 60%;
+  margin: 100px auto;
+  background-color: #ffffff;
+  border-radius: 25px;
+}
+
+#headerTitle {
+  text-align: center;
+  font-family: "open sans", sans-serif;
+  padding: 2rem 0;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  max-width: 100%;
+}
+
+.row input {
+  width: 80%;
+  box-sizing: border-box;
+  border: none;
+  font-size: 1.3rem;
+  padding-left: 1.5rem;
+  padding-bottom: 1rem;
+  box-shadow: inset 0px -3px 0px 0px rgba(187, 187, 187, 0.2);
+  transition: box-shadow 0.2s ease-in;
+}
+
+.row input:focus {
+  box-shadow: inset 0px -3px 0px 0px rgba(34, 193, 195, 0.7);
+  outline: none;
+}
+
+.row input::-webkit-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.25s ease-out;
+}
+
+.row input:hover::-webkit-input-placeholder,
+.row input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+
+.row label {
+  align-self: start;
+  padding-left: 4.5rem;
+  padding-bottom: 0.5rem;
+  color: rgba(187, 187, 187, 0.9);
+}
+
+.row button {
+  border-radius: 25px;
+  width: 80%;
+  height: 40px;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: 700;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    90deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+  border: 0px;
+  cursor: pointer;
+  transition: opacity 0.25s ease-out;
+}
+
+.row button:hover {
+  opacity: 0.8;
+}
+
+#button {
+  padding-bottom: 1.5rem;
+}
+
+#facebookIcon {
+  background-image: url("https://image.flaticon.com/icons/svg/145/145802.svg");
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 3rem;
+}
+
+#twitterIcon {
+  background-image: url("https://image.flaticon.com/icons/svg/145/145812.svg");
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 3rem;
+}
+
+#googleIcon {
+  background-image: url("https://image.flaticon.com/icons/svg/145/145804.svg");
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 3rem;
+}
+
+#iconGroup {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+#iconGroup a {
+  margin: 0 0.6rem;
+}
+
+#alternativeLogin {
+  text-align: center;
+  padding-top: 2rem;
+  margin-top: 1.5rem;
+}
+
+.login-button {
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    135deg,
+    rgb(10, 140, 227) 25%,
+    rgb(67, 5, 144) 100%
+  );
+}
+
+.Button .SocialIcon {
+  color: #000000; /* your preferred color here */
+}
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+.login-page {
+  /* background: rgb(34,193,195); */
+  /* background: linear-gradient(135deg, rgb(9, 94, 231) 0%,     rgb(3, 23, 242) 100%); */
+  margin: 0;
+  padding: 0;
+  font-family: "work sans";
+  /* background-image: url("https://img.freepik.com/free-photo/ecology-friendly-energy-environment-sustainable-concept_53876-120923.jpg?w=996&t=st=1681267277~exp=1681267877~hmac=3ba7dede5d98a5c033b82f8038ca1ba926eacc12ff2832f69f17adea68b4178c"); */
+  /* background-image: url("https://e1.pxfuel.com/desktop-wallpaper/407/1022/desktop-wallpaper-website-backgrounds-login-page.jpg"); */
+  background-image: url("https://drive.google.com/file/d/1tEO_fuQ07BmVSjmQt-kJYMMVA5JJFuz3/view?usp=share_link");
+
+  background-size: cover;
+}
+
+html {
+  font-size: 100%;
+}
+
+#Login {
+  margin: 0 auto;
+  margin-top: 70px;
+  max-width: 400px;
+  padding: 40px 40px;
+  background-color: #fff;
+  /* background: linear-gradient(135deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%); */
+}
+
+#loginform {
+  max-width: 500px;
+  min-width: 300px;
+  max-height: 700px;
+  width: 30%;
+  height: 60%;
+  margin: 100px auto;
+  background-color: #ffffff;
+  border-radius: 25px;
+}
+
+#headerTitle {
+  text-align: center;
+  font-family: "open sans", sans-serif;
+  padding: 2rem 0;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  max-width: 100%;
+}
+
+.row input {
+  width: 80%;
+  box-sizing: border-box;
+  border: none;
+  font-size: 1.3rem;
+  padding-left: 1.5rem;
+  padding-bottom: 1rem;
+  box-shadow: inset 0px -3px 0px 0px rgba(187, 187, 187, 0.2);
+  transition: box-shadow 0.2s ease-in;
+}
+
+.row input:focus {
+  box-shadow: inset 0px -3px 0px 0px rgba(34, 193, 195, 0.7);
+  outline: none;
+}
+
+.row input::-webkit-input-placeholder {
+  opacity: 1;
+  transition: opacity 0.25s ease-out;
+}
+
+.row input:hover::-webkit-input-placeholder,
+.row input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+
+.row label {
+  align-self: start;
+  padding-left: 4.5rem;
+  padding-bottom: 0.5rem;
+  color: rgba(187, 187, 187, 0.9);
+}
+
+.row button {
+  border-radius: 25px;
+  width: 80%;
+  height: 40px;
+  font-size: 1.3rem;
+  color: white;
+  font-weight: 700;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    90deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+  border: 0px;
+  cursor: pointer;
+  transition: opacity 0.25s ease-out;
+}
+
+.row button:hover {
+  opacity: 0.8;
+}
+
+#button {
+  padding-bottom: 1.5rem;
+}
+
+#facebookIcon {
+  background-image: url("https://image.flaticon.com/icons/svg/145/145802.svg");
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 3rem;
+}
+
+#twitterIcon {
+  background-image: url("https://image.flaticon.com/icons/svg/145/145812.svg");
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 3rem;
+}
+
+#googleIcon {
+  background-image: url("https://image.flaticon.com/icons/svg/145/145804.svg");
+  background-repeat: no-repeat;
+  width: 3rem;
+  height: 3rem;
+}
+
+#iconGroup {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+#iconGroup a {
+  margin: 0 0.6rem;
+}
+
+#alternativeLogin {
+  text-align: center;
+  padding-top: 2rem;
+  margin-top: 1.5rem;
+}
+
+.login-button {
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    135deg,
+    rgb(10, 140, 227) 25%,
+    rgb(67, 5, 144) 100%
+  );
+}
+
+.Button .SocialIcon {
+  color: #000000; /* your preferred color here */
+}
+
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  margin: 0px;
+}
+
+.background {
+  width: 100vw;
+  height: 88vh;
+  background: linear-gradient(
+    75deg,
+    rgb(20, 23, 33) 0%,
+    rgb(20, 23, 33) 50%,
+    rgba(20, 23, 33, 0.8) 100%
+  );
+  /* Vertical center */
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.form-card {
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+}
+
+.form-title {
+  font-size: 42px;
+  font-family: "Avenir";
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #e8e8e8;
+  padding-bottom: 12px;
+}
+
+.form-subtitle {
+  font-size: 18px;
+  font-family: "Avenir";
+  letter-spacing: 0.5px;
+  color: #afafaf;
+  padding-bottom: 24px;
+}
+
+.auth {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 12px;
+}
+.auth-label {
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  font-size: 11px;
+  color: rgb(175, 175, 175);
+  font-family: Avenir;
+  width: 100px;
+}
+.auth-input {
+  background-color: #3e404b;
+  color: white;
+  font-family: "Avenir";
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 24px 18px 12px 18px;
+  width: calc(100% - 18px - 18px);
+  margin-bottom: 12px;
+}
+.auth-button {
+  width: 100%;
+  height: 53px;
+  color: white;
+  background-color: #fa541c;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  font-family: "Avenir";
+  cursor: pointer;
+  transition: all 0.44s ease;
+  -webkit-transition: all 0.44s ease;
+  -moz-transition: all 0.44s ease;
+}
+.auth-button:hover {
+  filter: brightness(145%);
+}
+
+.chat-wrapper {
+  height: 80vh;
+  width: 80%;
+  margin-left: 10%;
+  color: white;
+  background: rgb(43, 47, 60);
+}
+
+.fullscreen {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}

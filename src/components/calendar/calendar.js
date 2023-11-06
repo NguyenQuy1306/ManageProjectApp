@@ -7,6 +7,8 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "./calendar.css";
+
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
 };
@@ -48,11 +50,11 @@ function Calendarr() {
       const d3 = new Date(allEvents[i].end);
       const d4 = new Date(newEvent.end);
       /*
-          console.log(d1 <= d2);
-          console.log(d2 <= d3);
-          console.log(d1 <= d4);
-          console.log(d4 <= d3);
-            */
+            console.log(d1 <= d2);
+            console.log(d2 <= d3);
+            console.log(d1 <= d4);
+            console.log(d4 <= d3);
+              */
 
       if ((d1 <= d2 && d2 <= d3) || (d1 <= d4 && d4 <= d3)) {
         alert("CLASH");

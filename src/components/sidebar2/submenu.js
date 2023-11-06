@@ -6,7 +6,7 @@ const SidebarLink = styled(Link)`
   display: flex;
   color: #e1e9fc;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Adjusted property */
   padding: 20px;
   list-style: none;
   height: 60px;
@@ -25,29 +25,64 @@ const SidebarLabel = styled.span`
 `;
 
 const DropdownLink = styled(Link)`
-  background: #07064a;
-  height: 60px;
-  padding-left: 3rem;
   display: flex;
-  align-items: center;
+  color: #e1e9fc;
+  justify-content: space-between;
+  align-items: center; /* Adjusted property */
+  padding: 20px;
+  list-style: none;
+  height: 60px;
   text-decoration: none;
-  color: #f5f5f5;
   font-size: 18px;
-
+  padding-left: 2rem;
   &:hover {
     background: #83838a;
+    border-left: 4px solid #632ce4;
     cursor: pointer;
   }
 `;
-
+const DropdownLinksub = styled(Link)`
+  display: flex;
+  color: #e1e9fc;
+  align-items: center; /* Adjusted property */
+  padding: 20px;
+  list-style: none;
+  height: 60px;
+  text-decoration: none;
+  font-size: 18px;
+  padding-left: 3rem;
+  &:hover {
+    background: #83838a;
+    border-left: 4px solid #632ce4;
+    cursor: pointer;
+  }
+`;
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
+  const [subsubnav, setSubsubnav] = useState([]);
+
+  const resetState = () => {
+    setSubsubnav([]);
+  };
 
   const showSubnav = () => setSubnav(!subnav);
 
+  const showSubsubnav = (index) => {
+    const newSubsubnav = [...subsubnav]; //Mảng newSubsubnav sẽ chứa các phần tử giống với subsubnav.
+    newSubsubnav[index] = !newSubsubnav[index]; //mỗi lần click vào thì set cái subitem thành đổi nghịch của nó. ban đầu mở lên thì set true
+    // lúc sau tắt đi thì set false. mỗi lần check giá trị subsubnav[index] thì nó true thì xuất list kh thì tắt hoặc kh show.
+    setSubsubnav(newSubsubnav); // chỗ nay set giá trị mới cho subsubnav.
+  };
+
   return (
     <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+      <SidebarLink
+        to={item.path}
+        onClick={() => {
+          item.subNav && showSubnav();
+          resetState();
+        }}
+      >
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
@@ -61,12 +96,35 @@ const SubMenu = ({ item }) => {
         </div>
       </SidebarLink>
       {subnav &&
-        item.subNav.map((item, index) => {
+        item.subNav?.map((subItem, index) => {
           return (
-            <DropdownLink to={item.path} key={index}>
-              {item.icon}
-              <SidebarLabel>{item.title}</SidebarLabel>
-            </DropdownLink>
+            <div key={index}>
+              <DropdownLink
+                to={subItem.path}
+                onClick={() => {
+                  subItem.subsubNav && showSubsubnav(index);
+                }}
+              >
+                <div>
+                  {subItem.icon}
+                  <SidebarLabel>{subItem.title}</SidebarLabel>
+                </div>
+                <div>
+                  {subItem.subsubNav && subsubnav[index]
+                    ? subItem.iconOpened
+                    : subItem.subsubNav
+                    ? subItem.iconClosed
+                    : null}
+                </div>
+              </DropdownLink>
+              {subsubnav[index] &&
+                subItem.subsubNav?.map((subsubItem, subIndex) => (
+                  <DropdownLinksub to={subsubItem.path} key={subIndex}>
+                    {subsubItem.icon}
+                    <SidebarLabel>{subsubItem.title}</SidebarLabel>
+                  </DropdownLinksub>
+                ))}
+            </div>
           );
         })}
     </>

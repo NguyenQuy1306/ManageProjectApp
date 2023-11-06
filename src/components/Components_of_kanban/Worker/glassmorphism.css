@@ -1,0 +1,33 @@
+.glassmorphism {
+  /* From https://css.glass */
+  background: rgba(45, 73, 100, 0.2);
+  /* background: rgba(205, 221, 185, 0.2); */
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(130, 172, 214, 0.43);
+}
+
+.popover-paper {
+  background: rgba(45, 73, 100, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  border: 1px solid rgba(130, 172, 214, 0.43) !important;
+}
+
+.loginGlass {
+  /* From https://css.glass */
+  /* background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3); */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
