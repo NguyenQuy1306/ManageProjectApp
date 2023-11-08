@@ -1,0 +1,23 @@
+.addproject {
+  display: grid;
+
+  align-items: center;
+  justify-content: space-between; /* Horizontal spacing between columns */
+  align-content: space-between;
+  margin-left: 70px;
+  margin-top: 10px;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 13px;
+}
+.inputproject {
+  display: grid;
+  align-items: center;
+  justify-content: space-between; /* Horizontal spacing between columns */
+  align-content: space-between;
+  margin-left: 30px;
+  margin-top: 20px;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 5px;
+}

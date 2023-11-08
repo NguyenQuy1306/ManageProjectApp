@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./sidebardata";
@@ -7,6 +7,7 @@ import { IconContext } from "react-icons/lib";
 import BrandApp from "../sidebar/logo";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
+import "./sidebar.css";
 const Nav = styled.div`
   background: #07064a;
   height: 80px;
@@ -47,7 +48,10 @@ const Sidebarr = () => {
   const [sidebar, setSidebar] = useState(true);
   const [newSubNavTitle, setNewSubNavTitle] = useState("");
   //const [newSubNavIcon, setNewSubNavIcon] = useState("");
-
+  localStorage.setItem("mySidebarData", JSON.stringify(SidebarData));
+  const [cards, setCards] = useState(
+    JSON.parse(localStorage.getItem("mySidebarData")) || []
+  );
   const handleAddSubNav = () => {
     // Create a new subNav object
     const newSubNav = {
@@ -64,7 +68,10 @@ const Sidebarr = () => {
     setNewSubNavTitle("");
     // setNewSubNavIcon("");
   };
-
+  useEffect(() => {
+    // Save the updated SidebarData into LocalStorage
+    localStorage.setItem("mySidebarData", JSON.stringify(SidebarData));
+  }, [SidebarData]);
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -77,8 +84,9 @@ const Sidebarr = () => {
             {/* Add subnav item form */}
             <div>
               <input
+                className="inputproject"
                 type="text"
-                placeholder="SubNav Title"
+                placeholder="Project Title"
                 value={newSubNavTitle}
                 onChange={(e) => setNewSubNavTitle(e.target.value)}
               />
@@ -88,7 +96,9 @@ const Sidebarr = () => {
                 value={newSubNavIcon}
                 onChange={(e) => setNewSubNavIcon(e.target.value)}
               /> */}
-              <button onClick={handleAddSubNav}>Add SubNav</button>
+              <button className="addproject" onClick={handleAddSubNav}>
+                Add Project
+              </button>
             </div>
           </SidebarWrap>
         </SidebarNav>

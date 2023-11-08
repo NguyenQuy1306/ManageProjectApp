@@ -9,13 +9,12 @@ import {
   X,
 } from "react-feather";
 import Dropdown from "react-bootstrap/Dropdown";
-import Modal from "../../Modal/Modal";
-import Editable from "../../Editabled/Editable";
-
-import "./CardInfo.css";
+import Modal from "../components/Components_of_kanban/Modal/Modal";
+import Editable from "../components/Components_of_kanban/Editabled/Editable";
+import "./sectioninfo.css";
 import { Button } from "react-bootstrap";
 
-function CardInfo(props) {
+function SectionInfo(props) {
   const weights = [
     { weight: 1, color: "#000000" },
     { weight: 2, color: "#000000" },
@@ -41,6 +40,7 @@ function CardInfo(props) {
   const [selectedColor, setSelectedColor] = useState();
   const [values, setValues] = useState({
     ...props.card,
+    labels: [],
   });
   const [selectedWeight, setSelectedWeight] = useState(1);
   const [selectedPriority, setSelectedWeightPriority] = useState("");
@@ -75,7 +75,6 @@ function CardInfo(props) {
   const addLabel = (label) => {
     const index = values.labels.findIndex((item) => item.text === label.text);
     if (index > -1) return;
-
     setSelectedColor("");
     setValues({
       ...values,
@@ -144,7 +143,7 @@ function CardInfo(props) {
   };
 
   useEffect(() => {
-    if (updateCard) updateCard(props.boardId, values.id, values);
+    if (updateCard) updateCard(values.id, values);
   }, [props.boardId, updateCard, values]);
 
   const handleOut = () => {
@@ -271,23 +270,22 @@ function CardInfo(props) {
           />
         </div>
         {/* <div className="cardinfo_box">
-          <Dropdown className="my_dropdownlist">
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Choose weight
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">1</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">2</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">3</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">4</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-
-          <Button className="save" onClick={handleOut}>
-            Click here to out!
-          </Button>
-        </div> */}
-
+            <Dropdown className="my_dropdownlist">
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Choose weight
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">1</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">2</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">3</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">4</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+  
+            <Button className="save" onClick={handleOut}>
+              Click here to out!
+            </Button>
+          </div> */}
         <div className="choose">
           <Dropdown className="my_dropdownlist1">
             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -334,4 +332,4 @@ function CardInfo(props) {
   );
 }
 
-export default CardInfo;
+export default SectionInfo;

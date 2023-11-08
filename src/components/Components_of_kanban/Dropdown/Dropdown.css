@@ -3,13 +3,13 @@
   right: 0;
   top: 100%;
   background-color: #fff;
-  border-radius: 3px;
+  border-radius: 10px;
   min-height: 40px;
   min-width: 80px;
   width: fit-content;
   height: fit-content;
   max-width: 250px;
-  max-height: 390px;
+  max-height: 100px;
   overflow-y: auto;
   z-index: 5;
 }

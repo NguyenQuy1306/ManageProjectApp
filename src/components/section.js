@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { CheckSquare, Clock, MoreHorizontal } from "react-feather";
 
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown from "./Components_of_kanban/Dropdown/Dropdown";
 
-import "./Card.css";
-import CardInfo from "./CardInfo/CardInfo";
+//import "./Card.css";
+import SectionInfo from "./sectioninfor";
 
-function Card(props) {
+function Section(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -50,18 +50,18 @@ function Card(props) {
   return (
     <>
       {showModal && (
-        <CardInfo
+        <SectionInfo
           onClose={() => setShowModal(false)}
           card={props.card}
-          boardId={props.boardId}
+          //  boardId={props.boardId}
           updateCard={props.updateCard}
         />
       )}
       <div
         className="card"
         draggable
-        onDragEnd={() => props.dragEnded(props.boardId, id)}
-        onDragEnter={() => props.dragEntered(props.boardId, id)}
+        //onDragEnd={() => props.dragEnded(id)}
+        //onDragEnter={() => props.dragEntered(id)}
         onClick={() => setShowModal(true)}
       >
         <div className="card_top">
@@ -74,18 +74,15 @@ function Card(props) {
                 >
                   {item.text}
                 </label>
-                {/* <label key={index} style={{ backgroundColor: item.color }}>
-                  Weight: {weight}
-                </label> */}
               </>
             ))}
             <>
-              <label style={{ backgroundColor: weightcolor || "#000000" }}>
+              {/* <label style={{ backgroundColor: weightcolor || "#000000" }}>
                 Weight: {weight}
               </label>
               <label style={{ backgroundColor: prioritycolor || "#000000" }}>
                 Priority: {priority}
-              </label>
+              </label> */}
             </>
           </div>
           <div
@@ -101,10 +98,8 @@ function Card(props) {
                 class="board_dropdown"
                 onClose={() => setShowDropdown(false)}
               >
-                <p onClick={() => setShowModal(true)}>Edit Card</p>
-                <p onClick={() => props.removeCard(props.boardId, id)}>
-                  Delete Card
-                </p>
+                <p onClick={() => setShowModal(true)}>Edit Section</p>
+                <p onClick={() => props.removeCard(id)}>Delete Section</p>
               </Dropdown>
             )}
           </div>
@@ -129,4 +124,4 @@ function Card(props) {
   );
 }
 
-export default Card;
+export default Section;
