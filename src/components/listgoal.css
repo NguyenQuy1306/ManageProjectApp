@@ -1,0 +1,44 @@
+.app_goals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Display 2 columns per row */
+  gap: 80px; /* Add some spacing between the boards */
+  align-items: center;
+  justify-content: space-between; /* Horizontal spacing between columns */
+  align-content: space-between;
+  margin-left: 80px;
+  height: 240px;
+  width: 720px;
+}
+
+
+.goal {
+  /* Add a border and some padding to the board */
+
+  border: 2px solid rgb(255, 255, 255); /* You can adjust the color and border width */
+  padding: 16px; /* Add some padding to create space between the border and board content */
+}
+
+.app_boards_last {
+  line-height: 30px;
+  width: 18px;
+  margin-top: 1px;
+  margin-right: 2px;
+  position:absolute;
+  top: 30px;
+  right:0;
+}
+
+.app_boards_add-board {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  text-align: center;
+}
+.app_boards_add-board_edit {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
