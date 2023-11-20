@@ -14,7 +14,7 @@ const LeftSide = (props) => {
 
   const handleLogin = () => {
     // Assuming successful login, navigate to the user page
-    navigate("/Homepage");
+    navigate("/Overview");
   };
   return (
     <div>

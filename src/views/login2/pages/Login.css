@@ -1,0 +1,44 @@
+.logo-child44 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-mini);
+  background-color: var(--color-black);
+  width: 147px;
+  height: 61px;
+}
+.icon44 {
+  top: 15px;
+  left: 7px;
+  width: 29.6px;
+  height: 30.4px;
+}
+.icon44,
+.logo44,
+.protask44 {
+  position: absolute;
+}
+.protask44 {
+  top: calc(50% - 16.5px);
+  left: 44px;
+  display: inline-block;
+  width: 101px;
+  height: 33px;
+}
+.logo44 {
+  top: 21px;
+  left: 38px;
+  width: 147px;
+  height: 61px;
+}
+.login44 {
+  position: relative;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: #fafafa;
+  font-family: var(--font-poppins);
+}

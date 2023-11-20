@@ -1,0 +1,192 @@
+.if-you-dont11,
+.sign-in11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.sign-in11 {
+  font-weight: 500;
+}
+.if-you-dont11 {
+  display: inline-block;
+  width: 308px;
+}
+.register-here11 {
+  font-weight: 600;
+  color: var(--color-mediumblue);
+}
+.you-can-register-container11 {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  display: inline-block;
+  width: 308px;
+}
+.if-you-dont-have-an-account-r-parent11 {
+  position: absolute;
+  top: 67px;
+  left: 0;
+  width: 308px;
+  height: 54px;
+  font-size: var(--font-size-base);
+}
+.sign-in-parent11 {
+  top: 0;
+  width: 308px;
+  height: 121px;
+}
+.group-child11,
+.password11,
+.sign-in-parent11 {
+  position: absolute;
+  left: 2px;
+}
+.password11 {
+  top: 0;
+  font-weight: 500;
+}
+.group-child11 {
+  top: 62px;
+  background-color: var(--color-darkgray);
+  width: 429px;
+  height: 2px;
+}
+.enter-your-password11,
+.padlock-1-icon11 {
+  position: absolute;
+  top: 0;
+  left: 29px;
+}
+.padlock-1-icon11 {
+  top: 4px;
+  left: 0;
+  width: 17px;
+  height: 17px;
+  overflow: hidden;
+}
+.enter-your-password-parent11 {
+  position: absolute;
+  top: 29px;
+  left: 0;
+  width: 191px;
+  height: 24px;
+  font-size: var(--font-size-base);
+  color: var(--color-midnightblue);
+}
+.invisible-1-icon11 {
+  position: absolute;
+  top: 39px;
+  left: 417px;
+  width: 14px;
+  height: 14px;
+  overflow: hidden;
+}
+.component-parent11,
+.group-item11,
+.password-parent11 {
+  position: absolute;
+  top: 113px;
+  left: 0;
+  width: 431px;
+  height: 64px;
+}
+.component-parent11,
+.group-item11 {
+  top: 0;
+  height: 177px;
+}
+.group-item11 {
+  top: 3px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+}
+.forgot-password11,
+.remember-me11 {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  font-weight: 300;
+}
+.forgot-password11 {
+  left: 321px;
+  color: var(--color-dimgray);
+}
+.rectangle-parent11 {
+  position: absolute;
+  top: 194px;
+  left: 2px;
+  width: 429px;
+  height: 18px;
+  font-size: var(--font-size-xs);
+  color: var(--color-black);
+}
+.group-inner11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-13xl);
+  background-color: var(--color-mediumblue);
+  box-shadow: 0 4px 26px rgba(0, 0, 0, 0.25);
+  width: 429px;
+  height: 53px;
+}
+.login11 {
+  position: absolute;
+  top: 14px;
+  left: 192px;
+  font-weight: 500;
+}
+.rectangle-group11 {
+  position: absolute;
+  top: 272px;
+  left: 2px;
+  width: 429px;
+  height: 53px;
+  font-size: var(--font-size-mid);
+  color: var(--color-white);
+}
+.group-container11,
+.group-div11 {
+  position: absolute;
+  left: 0;
+  width: 431px;
+}
+.group-div11 {
+  top: 173px;
+  height: 325px;
+  font-size: var(--font-size-smi);
+  color: var(--color-darkgray);
+}
+.group-container11 {
+  top: 0;
+  height: 498px;
+}
+.or-continue-with11 {
+  position: absolute;
+  top: 537px;
+  left: 152px;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-silver);
+}
+.sign-in11,
+.sign-in-child11 {
+  position: absolute;
+  top: 592px;
+  left: 134px;
+  width: 165px;
+  height: 43.1px;
+}
+.sign-in11 {
+  top: 141px;
+  left: 119px;
+  width: 431px;
+  height: 635.1px;
+  text-align: left;
+  font-size: var(--font-size-11xl);
+  color: var(--color-black);
+  font-family: var(--font-poppins);
+}

@@ -1,0 +1,14 @@
+.frame-child6 {
+  position: relative;
+  border-radius: var(--br-3xs);
+  width: 575px;
+  height: 473px;
+  object-fit: cover;
+}
+.way-building-details-group {
+  width: 1233px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

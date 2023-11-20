@@ -11,7 +11,7 @@ export const SidebarData = [
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
-    path: "/Homepage",
+    path: "/Overview",
   },
   {
     title: "Projects",
@@ -69,6 +69,12 @@ export const SidebarData = [
     title: "Support",
     // path: "/support",
     icon: <IoIcons.IoMdHelpCircle />,
+  },
+  {
+    title: "Logout",
+    // path: "/support",
+    icon: <IoIcons.IoMdHelpCircle />,
+    path: "/Login",
   },
 ];
 localStorage.setItem("mySidebarData", JSON.stringify(SidebarData));

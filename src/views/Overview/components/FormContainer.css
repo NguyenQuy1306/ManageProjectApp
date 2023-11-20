@@ -1,0 +1,79 @@
+.build-the-right {
+  position: relative;
+  line-height: 136.02%;
+  font-weight: 600;
+}
+.finding-the-right {
+  position: relative;
+  line-height: 30px;
+  display: inline-block;
+  width: 534px;
+  height: 113px;
+  flex-shrink: 0;
+}
+.delivery-model {
+  background: linear-gradient(225deg, #f76680, #57007b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.our-delivery-model-container {
+  position: relative;
+  line-height: 30px;
+  display: inline-block;
+  width: 503px;
+  height: 69px;
+  flex-shrink: 0;
+}
+.frame-child3,
+.simform-is-quick {
+  position: relative;
+  background: linear-gradient(225deg, #f76680, #57007b);
+  width: 3px;
+  height: 87px;
+}
+.simform-is-quick {
+  line-height: 30px;
+  display: inline-block;
+  font-weight: 300;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 435px;
+  flex-shrink: 0;
+}
+.rectangle-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  font-size: var(--headings-headings-h6-size);
+}
+.finding-the-right-talent-is-no-parent,
+.our-delivery-model-helps-you-c-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xl);
+}
+.finding-the-right-talent-is-no-parent {
+  gap: var(--gap-3xs);
+  text-align: left;
+  font-size: var(--headings-headings-h5-size);
+  color: var(--gray-gray-800);
+}
+.build-the-right-team-to-scale-parent,
+.way-building-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+}
+.way-building-details {
+  gap: var(--gap-6xl);
+  text-align: center;
+  font-size: var(--headings-headings-h3-size);
+  color: var(--gray-gray-900);
+  font-family: var(--button-text-btn-lg);
+}

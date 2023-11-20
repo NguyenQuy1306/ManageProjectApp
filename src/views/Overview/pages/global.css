@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inspiration:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
+body {
+  margin: 0;
+  line-height: normal;
+}
+:root {
+  /* fonts */
+  --button-text-btn-lg: Inter;
+  --font-poppins: Poppins;
+  --font-inspiration: Inspiration;
+
+  /* font sizes */
+  --button-text-btn-lg-size: 14px;
+  --headings-headings-h6-size: 16px;
+  --headings-headings-h5-size: 18px;
+  --font-size-smi: 13px;
+  --headings-headings-h2-size: 35px;
+  --headings-headings-h4-size: 20px;
+  --font-size-6xl: 25px;
+  --headings-headings-h3-size: 28px;
+  --font-size-2xs: 11px;
+  --font-size-xs: 12px;
+  --font-size-34xl: 53px;
+  --font-size-26xl: 45px;
+
+  /* Colors */
+  --base-white: #fff;
+  --gray-gray-50: #fafafa;
+  --gray-gray-900: #1a202c;
+  --gray-gray-700: #4a5568;
+  --brand-primary-bg: #57007b;
+  --gray-gray-800: #2d3748;
+  --gray-gray-600: #718096;
+  --gray-gray-300: #e2e8f0;
+  --gray-gray-500: #a0aec0;
+  --gray-gray-400: #cbd5e0;
+  --color-black: #000;
+  --shade-primary-lite-bg: #e8daed;
+  --color-mintcream: #f0fff7;
+  --shade-light-background: #f9f9ff;
+  --color-ghostwhite-100: #f1f2ff;
+
+  /* Gaps */
+  --gap-mini: 15px;
+  --gap-xl: 20px;
+  --gap-8xs: 5px;
+  --gap-5xs: 8px;
+  --gap-xs: 12px;
+  --gap-11xl: 30px;
+  --gap-41xl: 60px;
+  --gap-3xs: 10px;
+  --gap-6xl: 25px;
+  --gap-12xl: 31px;
+  --gap-2xl: 21px;
+  --gap-11xs: 2px;
+
+  /* Paddings */
+  --padding-3xs: 10px;
+  --padding-6xl: 25px;
+  --padding-sm: 14px;
+  --padding-lgi: 19px;
+  --padding-11xl: 30px;
+
+  /* Border radiuses */
+  --br-8xs: 5px;
+  --br-mid: 17px;
+  --br-3xs: 10px;
+  --br-6xs: 7px;
+  --br-mini-6: 14.6px;
+  --br-4xs: 9px;
+  --br-11xl: 30px;
+  --br-xl: 20px;
+  --br-7xs: 6px;
+
+  /* Effects */
+  --shadow-nav-shadown: 0px 4px 40px rgba(0, 0, 0, 0.1);
+  --card-shadow-lite: 0px 4px 30px rgba(0, 0, 0, 0.05);
+  --card-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  --btn-shadow: 0px 4px 49px rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,16 @@
+.property-1default-child {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: var(--br-6xs);
+  background-color: var(--gray-gray-50);
+  box-shadow: var(--card-shadow-lite);
+}
+.property-1default {
+  width: 332px;
+  height: 287px;
+}

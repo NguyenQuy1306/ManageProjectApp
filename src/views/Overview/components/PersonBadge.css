@@ -1,0 +1,33 @@
+.person-badge-child {
+  position: relative;
+  border-radius: 50%;
+  width: 41px;
+  height: 41px;
+  object-fit: cover;
+}
+.ceo,
+.jeewa-markram {
+  position: relative;
+}
+.ceo {
+  font-size: var(--font-size-smi);
+  color: var(--gray-gray-600);
+}
+.jeewa-markram-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-8xs);
+}
+.person-badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  text-align: left;
+  font-size: var(--headings-headings-h6-size);
+  color: var(--gray-gray-900);
+  font-family: var(--button-text-btn-lg);
+}

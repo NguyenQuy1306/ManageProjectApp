@@ -1,0 +1,18 @@
+.contact-us1 {
+  position: relative;
+  line-height: 14px;
+  font-weight: 600;
+}
+.property-1nav-buttonnav-butt {
+  border-radius: var(--br-8xs);
+  background: linear-gradient(225deg, #f76680, #57007b);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-sm) var(--padding-6xl);
+  text-align: left;
+  font-size: var(--button-text-btn-lg-size);
+  color: var(--gray-gray-50);
+  font-family: var(--button-text-btn-lg);
+}

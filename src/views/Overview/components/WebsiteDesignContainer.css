@@ -1,0 +1,83 @@
+.website-design-for {
+  position: relative;
+  line-height: 136.02%;
+  font-weight: 600;
+}
+.born-out-of {
+  position: relative;
+  font-size: var(--button-text-btn-lg-size);
+  line-height: 162.02%;
+  color: var(--gray-gray-700);
+  text-align: left;
+  display: inline-block;
+  width: 529px;
+}
+.website-design-for-scfc-canada-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+}
+.raed-more4 {
+  position: relative;
+  line-height: 14px;
+  font-weight: 600;
+  background: linear-gradient(225deg, #f76680, #57007b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  width: 73px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.arrow-right-circle-fill-icon4,
+.arrow-right-s-line-icon7 {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.arrow-right-circle-fill-icon4 {
+  width: 14px;
+  height: 14px;
+  display: none;
+}
+.frame-wrapper,
+.raed-more-parent2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.raed-more-parent2 {
+  gap: var(--gap-8xs);
+}
+.frame-wrapper {
+  text-align: left;
+  font-size: var(--button-text-btn-lg-size);
+}
+.frame-parent5 {
+  position: absolute;
+  top: 63.3px;
+  left: 143px;
+  background-color: var(--color-ghostwhite-100);
+  height: 248.4px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: var(--gap-41xl);
+}
+.card-wrapper-parent {
+  position: absolute;
+  top: 3831px;
+  left: 613px;
+  width: 723px;
+  height: 399px;
+  text-align: center;
+  font-size: var(--headings-headings-h3-size);
+  color: var(--gray-gray-800);
+  font-family: var(--button-text-btn-lg);
+}

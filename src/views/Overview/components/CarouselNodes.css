@@ -1,0 +1,22 @@
+.carousel-nodes-child,
+.carousel-nodes-inner {
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid var(--gray-gray-400);
+  box-sizing: border-box;
+  width: 13px;
+  height: 13px;
+}
+.carousel-nodes-inner {
+  background-color: var(--brand-primary-bg);
+  border: 1px solid var(--base-white);
+  width: 18px;
+  height: 18px;
+}
+.carousel-nodes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-5xs);
+}
