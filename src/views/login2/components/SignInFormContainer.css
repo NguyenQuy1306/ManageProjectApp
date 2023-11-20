@@ -58,7 +58,7 @@
   left: 29px;
 }
 .padlock-1-icon11 {
-  top: 4px;
+  top: 40px;
   left: 0;
   width: 17px;
   height: 17px;
@@ -132,6 +132,7 @@
   box-shadow: 0 4px 26px rgba(0, 0, 0, 0.25);
   width: 429px;
   height: 53px;
+  color: white;
 }
 .login11 {
   position: absolute;
@@ -189,4 +190,12 @@
   font-size: var(--font-size-11xl);
   color: var(--color-black);
   font-family: var(--font-poppins);
+}
+.inputpassword {
+  margin-left: 50px;
+  margin-top: 30px;
+  width: 350px;
+  border: none;
+  outline: none;
+  font-size: 17px;
 }

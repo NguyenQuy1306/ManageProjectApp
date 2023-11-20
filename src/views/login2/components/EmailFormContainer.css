@@ -45,3 +45,11 @@
   color: var(--color-darkgray);
   font-family: var(--font-poppins);
 }
+.inputemail {
+  margin-left: 50px;
+  margin-top: 35px;
+  width: 350px;
+  border: none;
+  outline: none;
+  font-size: 17px;
+}

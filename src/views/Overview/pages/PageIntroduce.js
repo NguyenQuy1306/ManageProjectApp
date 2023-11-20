@@ -16,9 +16,13 @@ import Container from "../components/Container";
 import Header from "../components/Header";
 import "./PageIntroduce.css";
 import "./global.css";
+import { useNavigate } from "react-router-dom";
 const PageIntroduce = () => {
+  const navigate = useNavigate();
+
   const onBtnPrimaryContainerClick = useCallback(() => {
     // Please sync "Login" to the project
+    navigate("/Login");
   }, []);
 
   const onNavButtonContainerClick = useCallback(() => {
