@@ -62,3 +62,8 @@
   border-radius: 10px;
   padding: 10px;
 }
+.mydashboardtext {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: -20px;
+}
