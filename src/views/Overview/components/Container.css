@@ -1,0 +1,58 @@
+.line-div {
+  position: absolute;
+  top: 204px;
+  left: 0;
+  width: 1182px;
+  height: 0;
+}
+.group-child10,
+.group-child11,
+.group-child12 {
+  position: absolute;
+  top: 174px;
+  left: 180.1px;
+  width: 0;
+  height: 30px;
+}
+.group-child11,
+.group-child12 {
+  left: 550.1px;
+}
+.group-child12 {
+  left: 940.1px;
+}
+.group-child13,
+.group-child14,
+.group-child15 {
+  position: absolute;
+  top: 204px;
+  left: 243px;
+  width: 0;
+  height: 30px;
+}
+.group-child14,
+.group-child15 {
+  left: 623px;
+}
+.group-child15 {
+  left: 1013px;
+}
+.trophy-perspective-matte-icon {
+  position: absolute;
+  top: 183px;
+  left: 1188px;
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+}
+.line-parent {
+  position: absolute;
+  top: 9420px;
+  left: 105px;
+  width: 1230px;
+  height: 408px;
+  text-align: left;
+  font-size: var(--headings-headings-h5-size);
+  color: var(--gray-gray-900);
+  font-family: var(--button-text-btn-lg);
+}

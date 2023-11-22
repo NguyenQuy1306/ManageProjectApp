@@ -89,7 +89,7 @@ function Listsection() {
     <>
       <div className="app">
         <div className="app_nav">
-          <h1>Section</h1>
+          <div className="sectiontext">Section</div>
         </div>
         <div className="app_boards_container">
           <div className="app_sections">

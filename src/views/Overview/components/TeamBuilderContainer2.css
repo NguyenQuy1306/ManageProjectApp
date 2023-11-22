@@ -1,0 +1,25 @@
+.frame-child4 {
+  position: relative;
+  width: 18px;
+  height: 1px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.rectangle-icon {
+  position: relative;
+  border-radius: var(--br-3xs);
+  width: 575px;
+  height: 473px;
+  object-fit: cover;
+}
+.way-building-details-parent {
+  width: 1233px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  font-size: var(--headings-headings-h3-size);
+  color: var(--gray-gray-900);
+  font-family: var(--button-text-btn-lg);
+}

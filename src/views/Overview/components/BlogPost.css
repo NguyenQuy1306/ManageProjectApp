@@ -1,0 +1,37 @@
+.frame-child {
+  position: relative;
+  border-radius: var(--br-3xs);
+  width: 254px;
+  height: 175px;
+  object-fit: cover;
+}
+.how-to-build {
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 25px;
+  font-weight: 500;
+  display: inline-block;
+  width: 254px;
+}
+.how-to-build-a-scalable-applic-wrapper {
+  position: relative;
+  width: 254px;
+  height: 75px;
+}
+.blog-post,
+.rectangle-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-xl);
+}
+.blog-post {
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-align: left;
+  font-size: var(--headings-headings-h6-size);
+  color: var(--gray-gray-800);
+  font-family: var(--button-text-btn-lg);
+}

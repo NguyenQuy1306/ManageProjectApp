@@ -1,0 +1,36 @@
+.div,
+.div1 {
+  position: absolute;
+  top: -42.86%;
+  left: 0;
+  line-height: 25px;
+  font-weight: 500;
+}
+.div1 {
+  left: 88.41%;
+  color: var(--brand-primary-bg);
+}
+.carousel-slider-numb-child,
+.carousel-slider-numb-item {
+  position: absolute;
+  height: 21.43%;
+  width: 67.68%;
+  top: 35.71%;
+  right: 16.46%;
+  bottom: 42.86%;
+  left: 15.85%;
+  background-color: var(--gray-gray-300);
+}
+.carousel-slider-numb-item {
+  width: 10.98%;
+  right: 73.17%;
+  background-color: var(--brand-primary-bg);
+}
+.carousel-slider-numb {
+  width: 164px;
+  height: 14px;
+  text-align: left;
+  font-size: var(--headings-headings-h6-size);
+  color: var(--gray-gray-500);
+  font-family: var(--button-text-btn-lg);
+}

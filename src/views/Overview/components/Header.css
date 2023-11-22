@@ -1,0 +1,48 @@
+.group-child16,
+.group-child17 {
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  border-radius: 14.56px;
+  background-color: var(--color-black);
+  width: 156px;
+  height: 59px;
+}
+.group-child17 {
+  top: 0;
+  left: 0;
+}
+.icon1,
+.protask1 {
+  position: absolute;
+  top: 8px;
+}
+.protask1 {
+  left: 44px;
+  display: inline-block;
+  width: 112px;
+  height: 39px;
+}
+.icon1 {
+  left: 5px;
+  width: 33px;
+  height: 34.9px;
+}
+.nav-bar-parent,
+.rectangle-parent4 {
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  width: 156px;
+  height: 59px;
+}
+.nav-bar-parent {
+  top: 0;
+  left: 0;
+  width: 1440px;
+  height: 79px;
+  text-align: left;
+  font-size: var(--font-size-6xl);
+  color: var(--gray-gray-50);
+  font-family: var(--font-poppins);
+}

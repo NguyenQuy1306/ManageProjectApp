@@ -1,0 +1,46 @@
+.card1 {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 280px;
+  height: fit-content;
+}
+/* styles.css */
+.card_title1 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.card_top1 {
+  margin-bottom: -30px;
+  margin-left: 0px;
+}
+.card_footer1 {
+  margin-bottom: 20px;
+}
+.time {
+  margin-bottom: -30px;
+}
+.card_top_more {
+  margin-left: 215px;
+  width: 30px;
+  height: 20px;
+  transform: translateX(15px);
+  flex: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: 200ms;
+}
+.myline {
+  margin-top: -15px;
+}
+.mydesc {
+  margin-top: -25px;
+}
+/* Add this style to your CSS file */
+.board_dropdown {
+  z-index: 1; /* Set a higher z-index for the dropdown */
+}

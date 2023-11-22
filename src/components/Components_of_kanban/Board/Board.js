@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useMyContext } from "../../context";
 import { MoreHorizontal } from "react-feather";
-
 import Card from "../Card/Card";
 import Dropdown from "../Dropdown/Dropdown";
 import Editable from "../Editabled/Editable";
-
 import "./Board.css";
 
 function Board(props) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const { boardCountsRef } = useMyContext();
 
+  useEffect(() => {
+    // Update the count for the current board
+    if (props.board?.title === "COMPLETED") {
+      boardCountsRef.current.COMPLETE = props.board?.cards?.length || 0;
+    } else if (props.board?.title === "TODO") {
+      boardCountsRef.current.TODO = props.board?.cards?.length || 0;
+    } else if (props.board?.title === "IN PROGRESS") {
+      boardCountsRef.current.IN_PROGRESS = props.board?.cards?.length || 0;
+    }
+  }, [props.board, boardCountsRef]);
   return (
     <div className="board">
       <div className="board_header">

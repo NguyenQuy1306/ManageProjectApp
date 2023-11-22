@@ -1,0 +1,94 @@
+.nh-child33 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-mini);
+  background-color: var(--color-midnightblue);
+  width: 735px;
+  height: 859px;
+}
+.sign-in-to33,
+.welcome-back33 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: 600;
+}
+.welcome-back33 {
+  top: 64px;
+  font-size: var(--font-size-xl);
+  font-weight: 300;
+  display: inline-block;
+  width: 396px;
+}
+.saly-10-icon33,
+.sign-in-to-protask-parent33 {
+  position: absolute;
+  top: 605px;
+  left: 0;
+  width: 396px;
+  height: 94px;
+}
+.saly-10-icon33 {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.group-parent33,
+.saly-1033 {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  width: 521px;
+  height: 521px;
+}
+.group-parent33 {
+  top: 64px;
+  left: 98px;
+  width: 546px;
+  height: 699px;
+}
+.phone-call-1-icon33 {
+  position: absolute;
+  height: 60.87%;
+  width: 9.79%;
+  top: 21.74%;
+  right: 90.21%;
+  bottom: 17.39%;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.div33 {
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+.phone-call-1-parent33 {
+  position: absolute;
+  height: 2.68%;
+  width: 19.46%;
+  top: 2.79%;
+  right: 3.67%;
+  bottom: 94.53%;
+  left: 76.87%;
+  font-size: var(--font-size-mini);
+}
+.nh33 {
+  position: absolute;
+  top: 21px;
+  left: 683px;
+  width: 735px;
+  height: 859px;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-white);
+  font-family: var(--font-poppins);
+}

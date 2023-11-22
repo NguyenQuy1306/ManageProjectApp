@@ -1,0 +1,17 @@
+.blog-post-parent {
+  height: 418px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-41xl);
+}
+.page-introduce-inner1 {
+  position: absolute;
+  top: 1556px;
+  left: -34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}

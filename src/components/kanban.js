@@ -124,7 +124,7 @@ function Kanban() {
     <>
       <div className="app">
         <div className="app_nav">
-          <h1>Dashboard</h1>
+          <div className="mydashboardtext">Dashboard</div>
         </div>
         <div className="app_boards_container">
           <div className="app_boards">

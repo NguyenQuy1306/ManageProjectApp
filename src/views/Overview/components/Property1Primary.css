@@ -1,0 +1,19 @@
+.lets-get-started {
+  position: relative;
+  line-height: 14px;
+  font-weight: 600;
+}
+.property-1primary {
+  border-radius: var(--br-8xs);
+  background-color: var(--brand-primary-bg);
+  box-shadow: var(--btn-shadow);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-lgi) var(--padding-11xl);
+  text-align: left;
+  font-size: var(--button-text-btn-lg-size);
+  color: var(--gray-gray-50);
+  font-family: var(--button-text-btn-lg);
+}

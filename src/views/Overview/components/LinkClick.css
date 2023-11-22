@@ -1,0 +1,23 @@
+.see-more-informations {
+  position: relative;
+  line-height: 25px;
+  font-weight: 500;
+}
+.arrow-right-line-icon1 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.link-click {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--gap-mini);
+  text-align: left;
+  font-size: var(--headings-headings-h6-size);
+  color: var(--brand-primary-bg);
+  font-family: var(--button-text-btn-lg);
+}

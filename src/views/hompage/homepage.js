@@ -4,7 +4,6 @@ import Sidebar from "../../components/sidebar/sidebar";
 import Sidebarr from "../../components/sidebar2/sidebar";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Col, Row, Container } from "react-bootstrap";
-import SearchBar from "../../components/searchbar";
 import "./homepage.css";
 import Kanban from "../../components/kanban";
 function Homepage() {

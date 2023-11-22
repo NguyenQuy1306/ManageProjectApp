@@ -1,0 +1,25 @@
+.deco-line {
+  position: relative;
+  background: linear-gradient(225deg, #f76680, #57007b);
+  width: 69px;
+  height: 5px;
+}
+.leading-companies-trust-container {
+  position: relative;
+  line-height: 55px;
+  display: inline-block;
+  width: 474px;
+  height: 108px;
+  flex-shrink: 0;
+}
+.property-1center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-xl);
+  text-align: center;
+  font-size: var(--headings-headings-h2-size);
+  color: var(--gray-gray-900);
+  font-family: var(--button-text-btn-lg);
+}
