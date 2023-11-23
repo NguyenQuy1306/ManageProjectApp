@@ -4,11 +4,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Col, Row, Container } from "react-bootstrap";
 import Listsection from "../../components/listsection";
 import "./ViewInproject.css";
+import Mynavbar from "../../components/NavBar";
 function Viewproject() {
   return (
     <div className="section">
       <div>
-        <Menu className="menu" />
+        <Mynavbar className="menu" />
         {/* <div className="searchbar">
           <SearchBar></SearchBar>
         </div> */}

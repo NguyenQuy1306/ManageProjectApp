@@ -109,8 +109,8 @@ function Listsection() {
                 displayClass="app_boards_add-board"
                 editClass="app_boards_add-board_edit"
                 placeholder="Enter Board Name"
-                text="Add Section"
-                buttonText="Add Section"
+                text="+ Add Section"
+                buttonText="+ Add Section"
                 onSubmit={addcardHandler}
               />
             </div>

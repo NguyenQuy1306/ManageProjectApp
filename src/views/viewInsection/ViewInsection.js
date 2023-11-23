@@ -4,11 +4,12 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Col, Row, Container } from "react-bootstrap";
 import "./ViewInsection.css";
 import Kanban from "../../components/kanban";
+import Mynavbar from "../../components/NavBar";
 function Viewsection() {
   return (
     <div className="section">
       <div>
-        <Menu className="menu" />
+        <Mynavbar className="menu" />
         {/* <div className="searchbar">
           <SearchBar></SearchBar>
         </div> */}

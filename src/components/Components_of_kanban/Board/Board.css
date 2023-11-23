@@ -12,11 +12,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 10px;
 }
 
 .board_header_title {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 120%;
   display: flex;
   gap: 5px;
   align-items: center;
@@ -38,14 +39,14 @@
   cursor: default;
 }
 .board_dropdown p {
-  border-bottom: 1px solid #f8f8f8;
+  border-bottom: 1px solid #968fac;
   cursor: pointer;
 }
 
 .board_cards {
-  background-color: #f8f8f8;
+  background-color: rgb(225, 215, 245);
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -53,11 +54,11 @@
 }
 
 .board_add-card {
-  background-color: #fff;
-  color: #000;
+  background-color: #0b083a;
+  color: #fff;
   border-radius: 10px;
   box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.12);
-  width: 100%;
+  width: 50%;
   text-align: center;
 }
 .board_add-card_edit {

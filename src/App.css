@@ -3,7 +3,7 @@
 }
 
 .porsche_1 {
-  width: 300px; 
+  width: 300px;
   height: auto;
 }
 
@@ -27,8 +27,7 @@
 .App-link {
   color: #61dafb;
 }
-.my_component
-{
+.my_component {
   color: rgb(31, 53, 102);
 }
 .search_icon {

@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import "./Menu.css";
 /**
  * @author
@@ -17,20 +18,19 @@ const Menu = (props) => {
             <Nav className="mr-auto">
               <Nav.Link href="#features">Features</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
-              {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown> */}
             </Nav>
+
+            <Dropdown className="my_dropdownlist123">
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Choose weight
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">1</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">2</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">3</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">4</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             <Nav>
               <Nav.Link href="#deets">More deets</Nav.Link>
               <Nav.Link eventKey={2} href="#memes">

@@ -1,0 +1,166 @@
+/* ul */
+.ul1306 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* a */
+.a1306 {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* Top Navigation Bar */
+
+/* <nav> */
+.navbar1306 {
+  background-color: white;
+  padding: 0 1rem;
+  border-bottom: var(--border);
+  margin-left: 1300px;
+  border: #484a4d;
+  border-radius: 10px;
+  height: 45px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 10px;
+}
+
+/* <ul> */
+.navbar-nav1306 {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* <li> */
+.nav-item1306 {
+  width: calc(var(--nav-size) * 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon Button */
+.icon-button1306 {
+  --button-size: calc(var(--nav-size) * 0.5);
+  width: var(--button-size);
+  height: var(--button-size);
+  background-color: rgb(185, 185, 199);
+  border-radius: 50%;
+  padding: 5px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 300ms;
+}
+
+.icon-button1306:hover {
+  filter: brightness(1.2);
+}
+
+.icon-button1306 svg {
+  fill: var(--text-color);
+  width: 20px;
+  height: 20px;
+}
+
+/* Dropdown Menu */
+
+.dropdown1306 {
+  margin-top: 10px;
+  position: absolute;
+  top: 58px;
+  width: 300px;
+  transform: translateX(-40%);
+  background-color: white;
+  border: black;
+  border-radius: 15px;
+  padding: 1rem;
+  overflow: auto;
+  transition: height var(--speed) ease;
+  width: fit-content;
+  height: fit-content;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 5;
+}
+
+.menu1306 {
+  width: 100%;
+}
+
+.menu-item1306 {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  transition: background var(--speed);
+  padding: 0.5rem;
+}
+
+.menu-item1306 .icon-button1306 {
+  margin-right: 0.5rem;
+}
+
+.menu-item1306 .icon-button1306:hover {
+  filter: none;
+}
+
+.menu-item1306:hover {
+  background-color: #cfd1db;
+  border-radius: 15px;
+}
+
+.icon-right1306 {
+  margin-left: auto;
+}
+
+/* CSSTransition classes  */
+.menu-primary-enter1306 {
+  position: absolute;
+  transform: translateX(-110%);
+}
+.menu-primary-enter-active1306 {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-primary-exit1306 {
+  position: absolute;
+}
+.menu-primary-exit-active1306 {
+  transform: translateX(-110%);
+  transition: all var(--speed) ease;
+}
+
+.menu-secondary-enter1306 {
+  transform: translateX(110%);
+}
+.menu-secondary-enter-active1306 {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-secondary-exit1306 {
+}
+.menu-secondary-exit-active1306 {
+  transform: translateX(110%);
+  transition: all var(--speed) ease;
+}
+.customNavItem3 {
+  display: flex;
+  align-items: center;
+}
+.nav-item1306.customNavItem3 {
+  background-color: #ff0000; /* Change to your desired background color */
+}
+
+.customImage {
+  width: 24px; /* Adjust the width as needed */
+  height: 24px; /* Adjust the height as needed */
+  object-fit: cover; /* Choose the object-fit value that suits your layout */
+  border-radius: 50%; /* Optional: Add border-radius for a circular image */
+}
+.buttonlogout {
+  border-radius: 10px;
+}

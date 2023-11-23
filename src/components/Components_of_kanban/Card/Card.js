@@ -95,15 +95,15 @@ function Card(props) {
               setShowDropdown(true);
             }}
           >
-            <MoreHorizontal />
+            <MoreHorizontal className="my3cham" />
             {showDropdown && (
               <Dropdown
                 class="board_dropdown"
                 onClose={() => setShowDropdown(false)}
               >
-                <p onClick={() => setShowModal(true)}>Edit Card</p>
+                <p onClick={() => setShowModal(true)}>Edit Task</p>
                 <p onClick={() => props.removeCard(props.boardId, id)}>
-                  Delete Card
+                  Delete Task
                 </p>
               </Dropdown>
             )}

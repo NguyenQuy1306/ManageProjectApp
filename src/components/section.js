@@ -6,10 +6,12 @@ import "./section.css";
 //import "./Card.css";
 import SectionInfo from "./sectioninfor";
 import { useMyContext } from "../../src/components/context";
+import { useNavigate } from "react-router-dom";
 function Section(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { boardCountsRef } = useMyContext();
+  const naviagate = useNavigate();
   const {
     id,
     title,
@@ -22,7 +24,10 @@ function Section(props) {
     priority,
     prioritycolor,
   } = props.card;
-
+  const handleClickSection = () => {
+    naviagate("/project1/section_1");
+    // {`/${subItem.title.toLowerCase().replace(/\s+/g, "_")}`}
+  };
   const formatDate = (value) => {
     if (!value) return "";
     const date = new Date(value);
@@ -59,11 +64,11 @@ function Section(props) {
         />
       )}
       <div
-        className="card"
+        className="card12"
         draggable
         //onDragEnd={() => props.dragEnded(id)}
         //onDragEnter={() => props.dragEntered(id)}
-        onClick={() => setShowModal(true)}
+        onClick={() => handleClickSection()}
       >
         <div className="card1">
           <div className="card_top1">
@@ -88,7 +93,7 @@ function Section(props) {
               </>
             </div>
             <div
-              className="card_top_more"
+              className="card_top_more12"
               onClick={(event) => {
                 event.stopPropagation();
                 setShowDropdown(true);
@@ -97,7 +102,7 @@ function Section(props) {
               <MoreHorizontal />
               {showDropdown && (
                 <Dropdown
-                  class="board_dropdown"
+                  class="board_dropdown1"
                   onClose={() => setShowDropdown(false)}
                 >
                   <p onClick={() => setShowModal(true)}>Edit Section</p>
@@ -108,15 +113,9 @@ function Section(props) {
           </div>
 
           <div className="card_title1">{title}</div>
-          <hr
-            className="myline"
-            style={{
-              color: "black",
-              backgroundColor: "black",
-              height: 2,
-              zIndex: 0,
-            }}
-          />
+
+          <hr className={`myline ${showDropdown ? "override" : ""}`} />
+
           <label className="mydesc">
             <span style={{ fontWeight: "bold" }}>Mô tả:</span> {desc}
           </label>

@@ -17,10 +17,10 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Overview" element={<Homepage />} />
           <Route path="/home" element={<Sidebar />} />
-          <Route path="/project1" exact element={<Viewproject />} />
-          <Route path="/project2" exact element={<Viewproject />} />
-          <Route path="/project1/section_1" exact element={<Viewsection />} />
-          <Route path="/project1/section_2" exact element={<Viewsection />} />
+          <Route path="/project_1" exact element={<Viewproject />} />
+          <Route path="/project_2" exact element={<Viewproject />} />
+          <Route path="/project_1/section_1" exact element={<Viewsection />} />
+          <Route path="/project_1/section_2" exact element={<Viewsection />} />
         </Routes>
       </div>
     </BrowserRouter>

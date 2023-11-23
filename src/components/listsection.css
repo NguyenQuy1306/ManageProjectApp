@@ -12,7 +12,6 @@
 .section {
   /* Add a border and some padding to the board */
 
-  border: 2px solid #000; /* You can adjust the color and border width */
   padding: 16px; /* Add some padding to create space between the border and board content */
 }
 .app_nav {
@@ -21,5 +20,5 @@
 .sectiontext {
   font-weight: bold;
   font-size: 22px;
-  margin-top: -20px;
+  margin-top: -15px;
 }

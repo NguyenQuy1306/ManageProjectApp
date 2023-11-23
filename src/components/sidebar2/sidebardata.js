@@ -3,7 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
-import { useState } from "react";
+import { AiOutlineLogout } from "react-icons/ai";
 
 export const SidebarData = [
   {
@@ -24,16 +24,14 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
-        path: "/project1",
+
         subsubNav: [
           {
             title: "Section 1",
-            path: "/project1/section_1",
             icon: <IoIcons.IoIosPaper />,
           },
           {
             title: "Section 2",
-            path: "/project1/section_2",
             icon: <IoIcons.IoIosPaper />,
           },
         ],
@@ -43,16 +41,14 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
-        path: "/project2",
+
         subsubNav: [
           {
             title: "Section 1",
-            // path: "/messages/message1/submessage1",
             icon: <IoIcons.IoIosPaper />,
           },
           {
             title: "Section 2",
-            // path: "/messages/message1/submessage2",
             icon: <IoIcons.IoIosPaper />,
           },
         ],
@@ -62,19 +58,41 @@ export const SidebarData = [
   },
   {
     title: "Team",
-    // path: "/team",
     icon: <IoIcons.IoMdPeople />,
   },
   {
     title: "Support",
-    // path: "/support",
     icon: <IoIcons.IoMdHelpCircle />,
   },
   {
     title: "Logout",
-    // path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <AiOutlineLogout />,
     path: "/Login",
   },
 ];
-localStorage.setItem("mySidebarData", JSON.stringify(SidebarData));
+
+const updatePaths = (data, basePath = "") => {
+  return data.map((item) => {
+    const updatedItem = { ...item };
+    updatedItem.path = `${basePath}/${item.title
+      .toLowerCase()
+      .replace(/\s+/g, "_")}`;
+
+    if (item.subNav) {
+      updatedItem.subNav = updatePaths(item.subNav, updatedItem.path);
+
+      if (item.subNav.length > 0 && item.subNav[0].subsubNav) {
+        updatedItem.subNav[0].subsubNav = updatePaths(
+          item.subNav[0].subsubNav,
+          updatedItem.subNav[0].path
+        );
+      }
+    }
+
+    return updatedItem;
+  });
+};
+
+const updatedSidebarData = updatePaths(SidebarData);
+
+localStorage.setItem("mySidebarData", JSON.stringify(updatedSidebarData));

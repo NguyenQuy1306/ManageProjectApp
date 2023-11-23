@@ -100,7 +100,7 @@ const SubMenu = ({ item }) => {
           return (
             <div key={index}>
               <DropdownLink
-                to={subItem.path}
+                to={`/${subItem.title.toLowerCase().replace(/\s+/g, "_")}`}
                 onClick={() => {
                   subItem.subsubNav && showSubsubnav(index);
                 }}
@@ -119,7 +119,14 @@ const SubMenu = ({ item }) => {
               </DropdownLink>
               {subsubnav[index] &&
                 subItem.subsubNav?.map((subsubItem, subIndex) => (
-                  <DropdownLinksub to={subsubItem.path} key={subIndex}>
+                  <DropdownLinksub
+                    to={`/${subItem.title
+                      .toLowerCase()
+                      .replace(/\s+/g, "_")}/${subsubItem.title
+                      .toLowerCase()
+                      .replace(/\s+/g, "_")}`}
+                    key={subIndex}
+                  >
                     {subsubItem.icon}
                     <SidebarLabel>{subsubItem.title}</SidebarLabel>
                   </DropdownLinksub>

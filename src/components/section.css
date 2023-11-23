@@ -7,13 +7,13 @@
   border-radius: 10px;
   width: 280px;
   height: fit-content;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
 }
 /* styles.css */
 .card_title1 {
   font-size: 22px;
   font-weight: bold;
 }
-
 .card_top1 {
   margin-bottom: -30px;
   margin-left: 0px;
@@ -24,8 +24,7 @@
 .time {
   margin-bottom: -30px;
 }
-.card_top_more {
-  margin-left: 215px;
+.card_top_more2 {
   width: 30px;
   height: 20px;
   transform: translateX(15px);
@@ -41,6 +40,51 @@
   margin-top: -25px;
 }
 /* Add this style to your CSS file */
-.board_dropdown {
-  z-index: 1; /* Set a higher z-index for the dropdown */
+.mylist {
+  cursor: pointer;
+  position: relative;
+}
+.card_top_more12 {
+  width: 30px;
+  height: 20px;
+  transform: translateX(15px);
+  flex: 1;
+  cursor: pointer;
+  opacity: 1;
+  transition: 200ms;
+  margin-left: 210px;
+}
+.board_dropdown1 {
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.12);
+  margin-top: 10px;
+  position: absolute;
+  top: 10px;
+  left: -50px;
+  width: 400px;
+  transform: translateX(-40%);
+  background-color: white;
+  border: black;
+  border-radius: 10px;
+  padding: 1rem;
+  overflow: auto;
+  transition: height var(--speed) ease;
+  width: 130px;
+  height: fit-content;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 6;
+}
+.board_dropdown1 p {
+  border-bottom: 1px solid #968fac;
+  cursor: pointer;
+}
+.myline {
+  color: rgb(181, 16, 16);
+  height: 2px;
+  z-index: 7;
+  font-weight: 100;
+}
+.myline.override {
+  /* Styles to override the line when the dropdown is shown */
+
+  color: #fff; /* Change this to your desired style */
 }

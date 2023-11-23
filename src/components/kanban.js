@@ -145,8 +145,8 @@ function Kanban() {
                 displayClass="app_boards_add-board"
                 editClass="app_boards_add-board_edit"
                 placeholder="Enter Board Name"
-                text="Add Board"
-                buttonText="Add Board"
+                text="+ Add Board"
+                buttonText="+ Add Board"
                 onSubmit={addboardHandler}
               />
             </div>

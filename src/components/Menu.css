@@ -1,0 +1,11 @@
+.Menu_css {
+  margin-left: 65%;
+}
+.my_dropdownlist123 {
+  width: 200px;
+  height: 1000px;
+  position: relative; /* Ensure the dropdown is positioned relative to its parent */
+  /* Display as inline block to fit within its container */
+  margin-left: 55%;
+  margin-left: 15%;
+}

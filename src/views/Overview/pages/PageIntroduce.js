@@ -91,7 +91,7 @@ const PageIntroduce = () => {
         <div className="our-service-wrapper">
           <div className="our-service-wrapper-child" />
           <div className="card-parent">
-            <div className="card">
+            <div className="card123">
               <div className="shadow" />
               <div className="background" />
             </div>
