@@ -7,6 +7,8 @@ import Homepage from "./views/hompage/homepage";
 import Viewproject from "./views/viewInproject/ViewInproject";
 import PageIntroduce from "./views/Overview/pages/PageIntroduce";
 import Login2 from "./views/login2/pages/Login";
+import Viewgoal from "./views/goal/viewIngoal";
+import ProfilePage from "./views/profile/viewInprofile";
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Overview" element={<Homepage />} />
           <Route path="/home" element={<Sidebar />} />
+          <Route path="/goal" element={<Viewgoal />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/project_1" exact element={<Viewproject />} />
           <Route path="/project_2" exact element={<Viewproject />} />
           <Route path="/project_1/section_1" exact element={<Viewsection />} />

@@ -2,15 +2,13 @@ import Menu from "../../components/Menu";
 import Sidebarr from "../../components/sidebar2/sidebar";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Alert, Col, Row, Container } from "react-bootstrap";
-import "./homepage.css";
-import Kanban from "../../components/kanban";
-import Mynavbar from "../../components/NavBar";
-import Calendarr from "../../components/calendar/calendar";
-function Homepage() {
+import ListGoal from "../../components/goal/listgoal/listGoal";
+import "./viewIngoal.css";
+function Viewgoal() {
   return (
-    <div className="section">
+    <div className="goal">
       <div>
-        <Mynavbar className="menu" />
+        <Menu className="menu" />
         {/* <div className="searchbar">
           <SearchBar></SearchBar>
         </div> */}
@@ -21,8 +19,8 @@ function Homepage() {
             <Sidebarr className="sidebar" />
           </Col>
           <Col sm={10}>
-            <Calendarr />
             {/* Muốn thêm thành phần gì thì bỏ vào đây */}
+            <ListGoal />
           </Col>
         </Row>
       </Container>
@@ -30,4 +28,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default Viewgoal;

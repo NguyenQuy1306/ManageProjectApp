@@ -14,6 +14,20 @@ export const SidebarData = [
     path: "/Overview",
   },
   {
+    title: "Goal",
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    path: "/goal",
+  },
+  {
+    title: "Profile",
+    icon: <AiIcons.AiFillHome />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+    path: "/profile",
+  },
+  {
     title: "Projects",
     icon: <IoIcons.IoIosPaper />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
