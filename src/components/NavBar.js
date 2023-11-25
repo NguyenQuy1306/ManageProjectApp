@@ -10,7 +10,9 @@ import "./Navbar.css";
 import React, { useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import { Usercontext } from "../api/usercontext";
 function Mynavbar() {
   return (
     <Navbar>
@@ -64,9 +66,11 @@ function DropdownMenu() {
   useEffect(() => {
     setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
   }, []);
-
+  const { logoutContext, user } = useContext(Usercontext);
   const handleLogout = () => {
-    navigate("/");
+    logoutContext();
+    navigate("/Login2");
+    toast.success("Log out success");
   };
 
   function calcHeight(el) {
@@ -114,13 +118,15 @@ function DropdownMenu() {
           >
             Settings
           </DropdownItem>
-          <DropdownItem
-            leftIcon="🦧"
-            rightIcon={<ChevronIcon />}
-            onClick={() => handleLogout()}
-          >
-            Logout
-          </DropdownItem>
+          {user && user.auth === true && (
+            <DropdownItem
+              leftIcon="🦧"
+              rightIcon={<ChevronIcon />}
+              onClick={() => handleLogout()}
+            >
+              Logout
+            </DropdownItem>
+          )}
         </div>
       </CSSTransition>
 

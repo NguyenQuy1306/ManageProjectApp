@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MyProvider } from "../src/components/context";
+import "react-toastify/dist/ReactToastify.css";
+import { UserProvider } from "./api/usercontext";
 ReactDOM.render(
   <React.StrictMode>
-    <MyProvider>
-      <App />
-    </MyProvider>
+    <UserProvider>
+      <MyProvider>
+        <App />
+      </MyProvider>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

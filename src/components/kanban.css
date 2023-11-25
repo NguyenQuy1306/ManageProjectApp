@@ -49,6 +49,7 @@
 .app_boards_last {
   flex-basis: 290px;
   min-width: 290px;
+  margin-bottom: -200px;
 }
 
 .app_boards_add-board {

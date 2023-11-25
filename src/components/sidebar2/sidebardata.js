@@ -4,7 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
 import { AiOutlineLogout } from "react-icons/ai";
-
+import { useNavigate } from "react-router-dom";
 export const SidebarData = [
   {
     title: "Overview",
@@ -77,11 +77,6 @@ export const SidebarData = [
   {
     title: "Support",
     icon: <IoIcons.IoMdHelpCircle />,
-  },
-  {
-    title: "Logout",
-    icon: <AiOutlineLogout />,
-    path: "/Login",
   },
 ];
 

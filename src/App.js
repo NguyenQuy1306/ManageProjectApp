@@ -9,7 +9,20 @@ import PageIntroduce from "./views/Overview/pages/PageIntroduce";
 import Login2 from "./views/login2/pages/Login";
 import Viewgoal from "./views/goal/viewIngoal";
 import ProfilePage from "./views/profile/viewInprofile";
+import { toast, ToastContainer } from "react-toastify";
+import { useContext, useEffect } from "react";
+import { Usercontext } from "./api/usercontext";
 function App() {
+  const { user, loginContext } = useContext(Usercontext);
+  // refresh lai se duy tri trang thai dang nhap
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      loginContext(
+        localStorage.getItem("email"),
+        localStorage.getItem("token")
+      );
+    }
+  });
   return (
     <BrowserRouter>
       <div>
@@ -27,6 +40,18 @@ function App() {
           <Route path="/project_1/section_2" exact element={<Viewsection />} />
         </Routes>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </BrowserRouter>
   );
 }

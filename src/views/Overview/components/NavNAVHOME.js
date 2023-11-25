@@ -13,7 +13,7 @@ const NavNAVHOME = ({
 
   const handleToLogin = () => {
     // Assuming successful login, navigate to the user page
-    navigate("/Login");
+    navigate("/Login2");
   };
   const navNAVHOMEStyle = useMemo(() => {
     return {

@@ -22,9 +22,10 @@
   width: 18px;
   margin-top: 1px;
   margin-right: 2px;
-  position: absolute;
+  position: relative;
   top: 30px;
   right: 0;
+  margin-bottom: 50px;
 }
 
 .app_boards_add-board {

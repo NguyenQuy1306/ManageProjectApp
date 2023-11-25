@@ -1,0 +1,71 @@
+/* @font-face {
+  font-family: "FX-LED";
+  src: url("fonts/FX-LED.TTF");
+}
+@font-face {
+  font-family: "Hack";
+  src: url("fonts/Hack-Bold.ttf");
+} */
+.alarm-clock {
+  background-color: #333;
+  color: #fff;
+  border: tan solid 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 80px;
+}
+.date {
+  font-size: 15px;
+  /* text-transform: uppercase; */
+
+  padding: 20px 20px 0;
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+.day,
+.month {
+  padding: 10px 1.5px 0;
+}
+.time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px 0;
+  font-family: "Orbitron", sans-serif;
+  font-size: 25px;
+  margin-left: 60px;
+}
+.time span {
+  color: #e74c3c;
+  text-shadow: 0 0 15px #e74c3c66;
+  line-height: 1.75;
+}
+.time span:nth-of-type(5) {
+  width: 90px;
+}
+.time span.colon {
+  width: 12px;
+  text-align: center;
+  animation: blink 2s infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

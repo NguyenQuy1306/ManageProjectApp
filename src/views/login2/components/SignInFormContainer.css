@@ -134,6 +134,21 @@
   height: 53px;
   color: white;
 }
+.group-inner22 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-13xl);
+  background-color: white;
+  box-shadow: 0 4px 26px rgba(0, 0, 0, 0.25);
+  width: 429px;
+  height: 53px;
+  color: black;
+}
+.button [disabled="disabled"],
+button:disabled {
+  cursor: not-allowed;
+}
 .login11 {
   position: absolute;
   top: 14px;

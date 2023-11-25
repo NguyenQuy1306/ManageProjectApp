@@ -1,16 +1,76 @@
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
-import EmailFormContainer from "./EmailFormContainer";
+import React, { useCallback } from "react";
+import "./EmailFormContainer.css";
 import "./SignInFormContainer.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "react";
+import { toast } from "react-toastify";
+import { loginApi } from "../../../api/Userservice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
+import { Usercontext } from "../../../api/usercontext";
+import { useContext } from "react";
 const SignInFormContainer = () => {
-  const [password, setEmail] = useState("");
+  const { loginContext } = useContext(Usercontext);
+  const [loadingAPI, setloadingAPI] = useState("false");
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      navigate("/Overview");
+    }
+  });
+  const [email, setEmail] = useState("");
+  const [password, SetPassword] = useState("");
   const navigate = useNavigate();
   const onPassInputChange = (e) => {
+    SetPassword(e.target.value);
+  };
+  const onEmailInputChange = (e) => {
     setEmail(e.target.value);
   };
-  const onClinkSubmit = () => {
-    navigate("/Overview");
+  const onLoginClick = async () => {
+    setloadingAPI(true);
+    if (!email || !password) {
+      toast.error("Email/Password is required!");
+      return;
+    }
+
+    try {
+      const res = await loginApi(email, password);
+      console.log("check res", res);
+      if (res && res.token) {
+        loginContext(email, res.token);
+        navigate("/Overview");
+      } else {
+        if (res && res.status === 400) {
+          toast.error(res.data.status);
+        }
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      toast.error("User not found");
+    }
+    setloadingAPI(false);
+  };
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const onEnterYourEmailClick = useCallback(() => {
+    const anchor = document.querySelector(
+      "[data-scroll-to='enterYourPassword']"
+    );
+    if (anchor) {
+      anchor.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
+  }, []);
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onEnterYourEmailClick();
+    }
   };
   return (
     <div className="sign-in11">
@@ -29,7 +89,24 @@ const SignInFormContainer = () => {
         </div>
         <div className="group-div11">
           <div className="component-parent11">
-            <EmailFormContainer />
+            <div className="email-parent22">
+              <div className="email22">Email</div>
+              {/* Form */}
+              <form onSubmit={onFormSubmit} className="formemail">
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  className="inputemail"
+                  onChange={onEmailInputChange}
+                  // onKeyPress={thihandleKeyPress()}
+                />
+                {/* <button type="submit">Submit</button> */}
+              </form>
+              {/* End of Form */}
+              <div className="component-child22" />
+              <img className="message-1-icon22" alt="" src="/message-1.svg" />
+            </div>
             <div className="password-parent11">
               <div className="password11">Password</div>
               <div className="group-child11" />
@@ -63,8 +140,13 @@ const SignInFormContainer = () => {
             <div className="forgot-password11">Forgot Password ?</div>
           </div>
           <div className="rectangle-group11">
-            <button className="group-inner11" onClick={() => onClinkSubmit()}>
-              Submit
+            <button
+              className={email && password ? "group-inner11" : "group-inner22"}
+              disabled={email && password ? false : true}
+              onClick={() => onLoginClick()}
+            >
+              {loadingAPI && <FontAwesomeIcon icon={faSync} spin />} &nbsp;
+              Login
             </button>
             <div className="login111">Login</div>
           </div>
