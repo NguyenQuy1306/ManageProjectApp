@@ -6,6 +6,7 @@ from django.utils.text import slugify
 
 from simple_history.models import HistoricalRecords
 
+
 from api.models import ModelWithProgress, ModelWithBudget
 
 

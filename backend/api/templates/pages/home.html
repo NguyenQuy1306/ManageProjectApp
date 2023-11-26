@@ -1,0 +1,138 @@
+{%extends 'base.html'%}
+{%block head_title%}
+amazing
+{%endblock%}
+{%block content%}
+<div class = 'row text-center'>
+    <div class ='col'>
+        <h1>Welcome to ProTask</h1>
+    </div>
+</div>
+
+<div class = 'row'>
+    <div class ='col-md-4 mx-auto col-10'>
+        <form class ='form' id ='project-create-form' method = 'POST' action='projects/add/'>
+            {% csrf_token %}            
+            <input type='hidden' value='/api/' name='next'>
+            <textarea class = 'form-control' name='title' placeholder ='Project title...'></textarea>
+            <button type='submit' class ='btn btn-primary'> Save</button>
+        </form>
+    </div>
+</div>
+
+<div class= 'row' id ='projects'>
+    Replace me
+</div >
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const projectsElement = document.getElementById("projects")
+    const projectCreateFormEl = document.getElementById('project-create-form')
+
+    function handleProjectCreateFormDidSubmit(event){
+        event.preventDefault()
+        const myForm = event.target //html of form
+        const myFormData = new FormData(myForm)
+        const url = myForm.getAttribute('action')
+        const method = myForm.getAttribute('method')
+        const xhr = new XMLHttpRequest()
+        const typeResponse = 'json'
+        xhr.typeReponse = typeResponse
+        xhr.open(method, url)
+        xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+        xhr.onload = function(){
+            console.log(xhr.status, xhr.response)
+            if (xhr.status == 201){
+                const newProject = JSON.parse(xhr.response)
+                const newProjectElement = formatProjectElement(newProject)
+                const ogHtml= projectsElement.innerHTML
+                projectsElement.innerHTML = newProjectElement + ogHtml
+                myForm.reset()
+                // const projectsEl = document.getElementById("projects")
+                // loadProjects(projectsEl)
+            }
+            else if(xhr.status === 400){
+
+                const errorJson = JSON.parse(xhr.response)
+                const contentError= errorJson.content
+                if(contentError){
+                    contentErrorMsg = contentError[0]
+                    handleProjectFormCreateError(contentErrorMsg, true)
+                }
+                else{
+                    alert("another error")
+                }
+            }
+            else if(xhr.status === 401){
+                alert("You must login")
+                window.location.href = '/login'
+            }
+            else if(xhr.status === 403){
+                alert("You must login")
+                window.location.href = '/login'
+            }
+            else if(xhr.status === 500){
+                console.log("Internal server error")
+            }
+        }
+        xhr.onerror = function(){
+            alert("An error occur, Please Try again later")
+        }
+        xhr.send(myFormData)
+    }
+    projectCreateFormEl.addEventListener("submit", handleProjectCreateFormDidSubmit)
+    function formatProjectElement(project){
+        var formattedText = "<div class = 'col-12 col-md-10 mx-auto border round mb-4 project' id ='project-"+ project.id +"'>" 
+            +"<p>" +
+                project.title + " | "+
+                project.budget+ " | "+
+                project.budget_spend+" | "+
+                project.description +" | "+
+                project.owner_id+" | " + "</p>"
+            +"<div class = 'btn-group mb-1'>"+ "</div>"+
+            "</div>"
+        return formattedText
+    }
+
+    function loadProjects(projectsElement){
+        const xhr = new XMLHttpRequest()
+        const typeResponse = 'json'
+        const url = 'projects/'
+        const method = "GET"
+        xhr.typeReponse = typeResponse
+        xhr.open(method, url)
+        xhr.onload = async function(){
+            const serverResponse = xhr.response
+            try{
+                var listProjects =  JSON.parse(serverResponse)
+                var finalProjectStr =""
+                var i;
+                for (i=0;i<listProjects.length;i++){
+                    projectObj = listProjects[i]
+                    finalProjectStr += formatProjectElement(projectObj)
+                    console.log(projectObj)
+                }
+                projectsElement.innerHTML = finalProjectStr
+            }
+            catch(error){
+                console.log(error)}
+        }
+        xhr.send()
+    }
+    loadProjects(projectsElement)
+</script>
+{%endblock%}
