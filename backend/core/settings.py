@@ -47,6 +47,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
+    "corsheaders",
     'django_extensions',
     'watchman',
     'simple_history',
@@ -82,8 +83,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 ROOT_URLCONF = 'core.urls'
 APPS_DIR = os.path.join(SETTINGS_PATH, 'api')
 TEMPLATES = [
@@ -245,6 +252,7 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = "user.User"
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
