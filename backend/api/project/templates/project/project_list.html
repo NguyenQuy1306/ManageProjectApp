@@ -1,0 +1,63 @@
+{% extends 'project/base.html' %}
+
+{% block page_title %}Projects :: {{ current_workspace }}{% endblock %}
+
+{% block object_add_url %}{% url 'projects:project-add' current_workspace %}{% endblock %}
+{% block object_list_url %}{% url 'projects:project-list' current_workspace %}{% endblock %}
+
+{% block table_head_content %}
+  <tr>
+    <th>
+      <input type="checkbox" class="selectAll" />
+    </th>
+    <th><abbr title="Identification Number">ID</abbr></th>
+    <th>Title</th>
+    <th>State</th>
+    <th>Starts</th>
+    <th>Ends</th>
+    <th><abbr title="Total Points">Pts</abbr></th>
+    <th>Stories</th>
+    <th>Progress</th>
+    <th>Updated</th>
+    <th>Manager</th>
+    <th>Actions</th>
+  </tr>
+{% endblock %}
+
+{% block table_body_content %}
+  {% for project in object_list %}
+  <tr {% if project.is_done %}class="has-text-grey-dark"{% endif %}>
+    <td>
+      <input type="checkbox" name="project-{{ project.id }}" />
+    </td>
+    <td>#{{ project.id }}</td>
+    <td>
+      <a href="{% url 'projects:project-detail' current_workspace project.id %}" {% if project.is_done %}class="has-text-grey-dark"{% endif %}>
+        <strong>{{ project.title }}</strong><br/>
+      </a>
+    </td>
+    <td>{{ project.get_state_display }}</td>
+    <td>{{ project.starts_at|default:'' }}</td>
+    <td>{{ project.ends_at|default:'' }}</td>
+    <td>{{ project.total_points }}</td>
+    <td>{{ project.story_count }}</td>
+    <td>
+      <progress class="progress is-primary" value="{{ project.progress }}" max="100">{{ project.progress }}%</progress>
+    </td>
+    <td>{{ project.updated_at|default:'' }}</td>
+    <td>
+      <a href="{% url 'users:user-detail' %}" class="has-text-grey-dark">
+        <strong>{{ project.owner }}</strong><br/>
+      </a>
+    </td>
+    <td>
+      <a class="button is-small is-link is-outlined" href="{% url 'projects:project-edit' current_workspace project.id %}?next={{ encoded_url }}" title="Edit">
+				<span class="icon is-small">
+					<i class="fas fa-edit"></i>
+				</span>
+				<small>edit</small>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+{% endblock %}

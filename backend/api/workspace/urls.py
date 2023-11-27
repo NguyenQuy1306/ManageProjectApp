@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import WorkspaceCreateView, WorkspaceDetailView, WorkspaceList, WorkspaceUpdateView
 
-app_name = 'workspace'
+app_name = 'workspaces'
 
 urlpatterns = [
     path('add/', WorkspaceCreateView.as_view(), name='workspace-add'),

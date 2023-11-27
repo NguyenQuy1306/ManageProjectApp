@@ -8,9 +8,7 @@ from django.utils.text import slugify
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
 
 from ..utils import get_clean_next_url
 from .models import Workspace
@@ -58,7 +56,7 @@ class BaseListView(ListView):
     filter_fields = {}
     select_related = None
     prefetch_related = None
- 
+
     def _build_filters(self, q):
         params = {}
 

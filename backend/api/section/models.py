@@ -18,19 +18,19 @@ class StateModel(models.Model):
         abstract = True
         ordering = ['stype', 'name']
 
-    STATE_UNSTARTED = 0
-    STATE_STARTED = 1
-    STATE_DONE = 2
+    UNSTARTED = 0
+    STARTED = 1
+    DONE = 2
 
-    STATE_TYPES = (
-        (STATE_UNSTARTED, 'Unstarted'),
-        (STATE_STARTED, 'Started'),
-        (STATE_DONE, 'Done'),
+    TYPES = (
+        (UNSTARTED, 'Unstarted'),
+        (STARTED, 'Started'),
+        (DONE, 'Done'),
     )
 
     slug = models.SlugField(max_length=2, primary_key=True)
     name = models.CharField(max_length=100, db_index=True)
-    stype = models.PositiveIntegerField(db_index=True, choices=STATE_TYPES, default=STATE_UNSTARTED)
+    stype = models.PositiveIntegerField(db_index=True, choices=TYPES, default=UNSTARTED)
 
     def __str__(self):
         return self.name
@@ -84,13 +84,13 @@ class Section(ModelWithProgress, ModelWithBudget):
 
     tags = TagField(blank=True)
 
-    history = HistoricalRecords()
+    hisection = HistoricalRecords()
 
     def get_absolute_url(self):
         return reverse('section:section-detail', args=[self.project.slug, str(self.id)])
 
     def is_done(self):
-        if self.state.stype == StateModel.STATE_DONE:
+        if self.state.stype == StateModel.DONE:
             return True
 
         return False
@@ -106,13 +106,13 @@ class Section(ModelWithProgress, ModelWithBudget):
 
     def update_state(self):
         # set section as started when it has one or more started stories
-        if Task.objects.filter(state__stype=TaskState.STATE_STARTED, section=self).count() > 0:
-            if self.state.stype != SectionState.STATE_STARTED:
-                self.state = SectionState.objects.filter(stype=SectionState.STATE_STARTED)[0]
+        if Task.objects.filter(state__stype=TaskState.STARTED, section=self).count() > 0:
+            if self.state.stype != SectionState.STARTED:
+                self.state = SectionState.objects.filter(stype=SectionState.STARTED)[0]
 
-        elif Task.objects.filter(state__stype=TaskState.STATE_UNSTARTED, section=self).count() == self.story_count:
-            if self.state.stype != SectionState.STATE_UNSTARTED:
-                self.state = SectionState.objects.filter(stype=SectionState.STATE_UNSTARTED)[0]
+        elif Task.objects.filter(state__stype=TaskState.UNSTARTED, section=self).count() == self.section_count:
+            if self.state.stype != SectionState.UNSTARTED:
+                self.state = SectionState.objects.filter(stype=SectionState.UNSTARTED)[0]
 
         self.save()
 class StatusChoices(models.TextChoices):
@@ -155,13 +155,13 @@ class Task(BaseModel):
 
     tags = TagField(blank=True)
 
-    history = HistoricalRecords()
+    hisection = HistoricalRecords()
 
     def get_absolute_url(self):
         return reverse('section:task-detail', args=[self.project.slug, str(self.id)])
 
     def is_done(self):
-        if self.state.stype == StateModel.STATE_DONE:
+        if self.state.stype == StateModel.DONE:
             return True
 
         return False
@@ -180,7 +180,7 @@ class Task(BaseModel):
 
 
 # @receiver(pre_save, sender=Task)
-# def handle_story_pre_save(sender, **kwargs):
+# def handle_section_pre_save(sender, **kwargs):
 #     if not kwargs.get('raw', False):
 #         instance = kwargs['instance']
 
@@ -188,7 +188,7 @@ class Task(BaseModel):
 #             previous_section = None
 #         else:
 #             try:
-#                 previous_section = Section.objects.get(story__id=instance.id)
+#                 previous_section = Section.objects.get(section__id=instance.id)
 #             except Section.DoesNotExist:
 #                 previous_section = None
 
@@ -197,7 +197,7 @@ class Task(BaseModel):
 #         if (previous_section != instance.section) and previous_section is not None:
 #             from .tasks import handle_section_change
 #             # 10 seconds till the section changes to the new one so this will have
-#             # one story less
+#             # one section less
 #             handle_section_change.apply_async((previous_section.id, ), countdown=10)
 
 #         if instance.id is None:
@@ -205,7 +205,7 @@ class Task(BaseModel):
 #         else:
 #             from matorral.projects.models import Project
 #             try:
-#                 previous_project = Project.objects.get(story__id=instance.id)
+#                 previous_project = Project.objects.get(section__id=instance.id)
 #             except Project.DoesNotExist:
 #                 previous_project = None
 
@@ -214,24 +214,24 @@ class Task(BaseModel):
 #         if (previous_project != instance.project) and previous_project is not None:
 #             from matorral.projects.tasks import handle_project_change
 #             # 10 seconds till the project changes to the new one so this will have
-#             # one story less
+#             # one section less
 #             handle_project_change.apply_async((previous_project.id, ), countdown=10)
 
 
 # @receiver(post_save, sender=Task)
-# def handle_story_post_save(sender, **kwargs):
-#     from .tasks import handle_story_change
+# def handle_section_post_save(sender, **kwargs):
+#     from .tasks import handle_section_change
 #     if not kwargs.get('raw', False):
 #         instance = kwargs['instance']
-#         handle_story_change.delay(instance.id)
+#         handle_section_change.delay(instance.id)
 
 
 # @receiver(post_delete, sender=Task)
-# def handle_story_post_delete(sender, **kwargs):
-#     from .tasks import handle_story_change
+# def handle_section_post_delete(sender, **kwargs):
+#     from .tasks import handle_section_change
 #     if not kwargs.get('raw', False):
 #         instance = kwargs['instance']
-#         handle_story_change.delay(instance.id)
+#         handle_section_change.delay(instance.id)
 
 
 class Todo(BaseModel):

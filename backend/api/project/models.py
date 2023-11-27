@@ -4,11 +4,12 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+
 from simple_history.models import HistoricalRecords
 
 
 from api.models import ModelWithProgress, ModelWithBudget
-
+from api.workspace.models import Workspace
 
 class Project(ModelWithProgress, ModelWithBudget):
     """
@@ -39,7 +40,7 @@ class Project(ModelWithProgress, ModelWithBudget):
 
     state = models.PositiveIntegerField(db_index=True, choices=STATE_TYPES, default=STATE_UNSTARTED)
     
-    # workspace = models.ForeignKey('workspaces.Workspace', on_delete=models.CASCADE)
+    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='project_members', blank=True, through='ProjectMember')
 

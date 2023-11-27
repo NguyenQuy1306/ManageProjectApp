@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block page_title %}[Project] {{ object.title }} :: {{ current_workspace }}{% endblock %}
+
+{% block object_list_url %}{% url 'projects:project-list' current_workspace %}{% endblock %}
+
+{% block content %}
+	<nav class="level">
+    <form method="GET">
+      <!-- Left side -->
+      <div class="level-left">
+        <nav class="breadcrumb is-large" aria-label="breadcrumbs">
+          <ul>
+            <li><a href="{% url 'projects:project-list' current_workspace %}">Projects</a></li>
+            <li class="is-active">
+              <a href="#" aria-current="page">
+                {{ object.title }}
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </form>
+
+    <form method="POST">
+      {% csrf_token %}
+      <!-- Right side -->
+      <div class="level-right">
+        <div class="level-item">
+          <a href="{% url 'projects:project-edit' current_workspace project.id %}?next={{ encoded_url }}" class="button is-link">
+            <span class="icon is-small">
+              <i class="fas fa-edit"></i>
+            </span>
+            <small>Edit</small>
+          </a>
+        </div>
+
+        <div class="level-item">
+          <div class="field has-addons">
+            <p class="control">
+              <form method="POST">
+                {% csrf_token %}
+                <button class="button is-danger is-outlined" type="submit" name="remove" value="yes">
+                  <span class="icon is-small">
+                    <i class="fas fa-minus"></i>
+                  </span>
+                  <small>Remove</small>
+                </button>
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+	</nav>
+
+	<div class="card">
+		<div class="card-content">
+			<div class="media">
+				<div class="media-content">
+					<p class="title is-4">{{ project.title }}</p>
+          <p class="subtitle is-6">{{ project.starts_at }} to {{ project.ends_at }}</p>
+				</div>
+			</div>
+
+			<div class="content">
+				{{ project.description|default:''|linebreaksbr }}<br/><br/>
+				<div class="field is-grouped is-grouped-multiline">
+					<div class="control">
+						<div class="tags has-addons">
+							<span class="tag">State</span>
+							<span class="tag is-primary">{{ project.get_state_display }}</span>
+						</div>
+					</div>
+				</div>
+				<strong>Progress:</strong>
+				<br/>
+				<br/>
+        {% with project.progress|default:'0' as value %}
+          <progress class="progress is-primary" value="{{ value }}" title="{{ value }}%" max="100">{{ value }}%</progress>
+        {% endwith %}
+				<strong>Last Update:</strong> <time datetime="{{ project.updated_at }}">{{ project.updated_at }}</time>
+			</div>
+		</div>
+	</div>
+
+  <br/>
+	<nav class="level">
+    <form method="GET">
+      <!-- Left side -->
+      <div class="level-left">
+        <nav class="breadcrumb is-large" aria-label="breadcrumbs" style="margin: 0;">
+          <ul>
+            <li class="is-active"><a href="#" aria-current="page">Sections</a></li>
+          </ul>
+        </nav>
+
+        {% for field in group_by_form.visible_fields %}
+          <div class="level-item">
+            <label>{{ field.label }}</label>&nbsp;
+            <div class="field">
+              {{ field }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </form>
+
+		<!-- Right side -->
+		<div class="level-right">
+
+      {% for field in filters_form.visible_fields %}
+        <div class="level-item bulk-action">
+          <div class="field">
+            <div class="control">
+              <div class="select is-primary">
+                {{ field }}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+			<div class="level-item bulk-action">
+				<div class="field has-addons">
+					<p class="control">
+            <button class="button is-danger is-outlined" type="submit" name="project-reset" value="yes" form="object-list">
+              <span class="icon is-small">
+                <i class="fas fa-minus"></i>
+              </span>
+              <small>Remove from Project</small>
+						</button>
+					</p>
+				</div>
+			</div>
+
+			<div class="level-item">
+				<div class="field has-addons">
+					<p class="control">
+            <a class="button is-link" href="{% url 'projects:project-add' current_workspace %}?next={{ encoded_url }}&amp;project={{ project.id }}">
+              <span class="icon is-small">
+                <i class="fas fa-plus"></i>
+              </span>
+              <small>Create</small>
+						</a>
+					</p>
+				</div>
+			</div>
+
+      <div class="level-item">
+				<div class="field has-addons">
+					<p class="control">
+            <a class="button is-link is-outlined" title="Add existing projects to this project"
+               href="{% block object_add_url3 %}{% url 'projects:project-list' current_workspace %}{% endblock %}?to-project={{ project.id }}">
+              <span class="icon is-small">
+                <i class="fas fa-search"></i>
+              </span>
+              <small>Add Existing</small>
+						</a>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</nav>
+
+  <form id="object-list" name="object-list" method="POST">
+    {% csrf_token %}
+
+    {% for group_title, object_list in objects_by_group %}
+      {% if group_by %}
+        <h3 class="subtitle">{{ group_title }}</h3>
+      {% endif %}
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>
+                <input type="checkbox" class="selectAll" />
+            </th>
+            <th><abbr title="Identification Number">ID</abbr></th>
+            <th>Title</th>
+            <th>State</th>
+            <th>Priority</th>
+            <th><abbr title="Points">Pts</abbr></th>
+            <th>Requester</th>
+            <th>Assignee</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in object_list %}
+          <tr {% if project.is_done %}class="has-text-grey-dark"{% endif %}>
+            <td>
+              <div class="field">
+                <input type="checkbox" name="project-{{ project.id }}" />
+              </div>
+            </td>
+            <td>#{{ project.id }}</td>
+            <td>
+              <a href="{% url 'projects:project-detail' current_workspace project.id %}?next={{ encoded_url }}" {% if project.is_done %}class="has-text-grey-dark"{% endif %}>
+                <strong>{{ project.title }}</strong><br/>
+              </a>
+              {% for tag in project.tags.all %}
+              <span class="tag is-light">{{ tag.name }}</span>
+              {% endfor %}
+            </td>
+            <td>{{ project.state }}</td>
+            <td>{{ project.priority }}</td>
+            <td>{{ project.points }}</td>
+            <td>{{ project.requester.username }}</td>
+            <td>
+              <a class="button is-link is-small is-outlined" href="{% url 'projects:project-edit' current_workspace project.id %}?next={{ encoded_url }}" title="Edit">
+                <span class="icon is-small">
+                  <i class="fas fa-edit"></i>
+                </span>
+                <small>edit</small>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </form>
+{% endblock %}

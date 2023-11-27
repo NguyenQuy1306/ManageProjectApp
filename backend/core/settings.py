@@ -58,6 +58,7 @@ THIRD_PARTY_APPS = (
     'django_comments',
     'crispy_forms',
     'formtools',
+    'debug_toolbar',
     'crispy_bootstrap5',
 )
 
@@ -84,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     "corsheaders.middleware.CorsMiddleware",
 ]
 CORS_ALLOWED_ORIGINS = [
