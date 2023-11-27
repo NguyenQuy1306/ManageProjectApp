@@ -1,6 +1,6 @@
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 import React, { useCallback } from "react";
-import "./EmailFormContainer.css";
+import "./UsernameFormContainer.css";
 import "./SignInFormContainer.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,32 +16,35 @@ const SignInFormContainer = () => {
   const { loginContext } = useContext(Usercontext);
   const [loadingAPI, setloadingAPI] = useState("false");
   useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      navigate("/Overview");
+    let refresh = localStorage.getItem("refresh");
+    console.log("refresh ne", refresh)
+    if (refresh) {
+      setTimeout(() => {
+        navigate('/Overview');
+    }, 2000);
     }
   });
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, SetPassword] = useState("");
   const navigate = useNavigate();
   const onPassInputChange = (e) => {
     SetPassword(e.target.value);
   };
-  const onEmailInputChange = (e) => {
-    setEmail(e.target.value);
+  const onUsernameInputChange = (e) => {
+    setUsername(e.target.value);
   };
   const onLoginClick = async () => {
     setloadingAPI(true);
-    if (!email || !password) {
-      toast.error("Email/Password is required!");
+    if (!username || !password) {
+      toast.error("Username/Password is required!");
       return;
     }
 
     try {
-      const res = await loginApi(email, password);
+      const res = await loginApi(username, password);
       console.log("check res", res);
-      if (res && res.token) {
-        loginContext(email, res.token);
+      if (res && res.refresh) {
+        loginContext(username, res.refresh);
         navigate("/Overview");
       } else {
         if (res && res.status === 400) {
@@ -58,7 +61,7 @@ const SignInFormContainer = () => {
     e.preventDefault();
   };
 
-  const onEnterYourEmailClick = useCallback(() => {
+  const onEnterYourUsernameClick = useCallback(() => {
     const anchor = document.querySelector(
       "[data-scroll-to='enterYourPassword']"
     );
@@ -69,7 +72,7 @@ const SignInFormContainer = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      onEnterYourEmailClick();
+      onEnterYourUsernameClick();
     }
   };
   return (
@@ -89,17 +92,17 @@ const SignInFormContainer = () => {
         </div>
         <div className="group-div11">
           <div className="component-parent11">
-            <div className="email-parent22">
-              <div className="email22">Email</div>
+            <div className="username-parent22">
+              <div className="username22">Username</div>
               {/* Form */}
-              <form onSubmit={onFormSubmit} className="formemail">
+              <form onSubmit={onFormSubmit} className="formusername">
                 <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  value={email}
-                  className="inputemail"
-                  onChange={onEmailInputChange}
-                  // onKeyPress={thihandleKeyPress()}
+                  type="username"
+                  placeholder="Enter your username address"
+                  value={username}
+                  className="inputusername"
+                  onChange={onUsernameInputChange}
+                // onKeyPress={thihandleKeyPress()}
                 />
                 {/* <button type="submit">Submit</button> */}
               </form>
@@ -141,8 +144,8 @@ const SignInFormContainer = () => {
           </div>
           <div className="rectangle-group11">
             <button
-              className={email && password ? "group-inner11" : "group-inner22"}
-              disabled={email && password ? false : true}
+              className={username && password ? "group-inner11" : "group-inner22"}
+              disabled={username && password ? false : true}
               onClick={() => onLoginClick()}
             >
               {loadingAPI && <FontAwesomeIcon icon={faSync} spin />} &nbsp;

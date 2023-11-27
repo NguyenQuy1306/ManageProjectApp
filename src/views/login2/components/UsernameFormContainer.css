@@ -1,10 +1,10 @@
-.email22 {
+.username22 {
   position: absolute;
   top: 0;
   left: 0;
   font-weight: 500;
 }
-.enter-your-email22 {
+.enter-your-username22 {
   position: absolute;
   top: 48.44%;
   left: 6.29%;
@@ -34,7 +34,7 @@
   overflow: hidden;
   max-height: 100%;
 }
-.email-parent22 {
+.username-parent22 {
   position: absolute;
   top: 0;
   left: 2px;
@@ -45,7 +45,7 @@
   color: var(--color-darkgray);
   font-family: var(--font-poppins);
 }
-.inputemail {
+.inputusername {
   margin-left: 50px;
   margin-top: 35px;
   width: 350px;
