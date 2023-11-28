@@ -7,7 +7,7 @@
     {% block extra_head %}
       <meta name="turbolinks-cache-control" content="no-cache">
     {% endblock %}
-    <title>{% block page_title %}{{ current_site.name }} - Simple Project Management System{% endblock %}</title>
+    <title>{% block page_title %}Protask{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bulma-0.7.4.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bulma-calendar.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bulma-tagsinput.min.css' %}">
@@ -25,7 +25,7 @@
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
             <h1 class="title has-text-white-bis">
-              {{ current_site.name }}
+              Protask
             </h1>
         </a>
 
@@ -42,10 +42,12 @@
           <a class="navbar-item" href="{% url 'projects:project-list' workspace='default' %}">
             Projects
           </a>
-          {% comment %} <a class="navbar-item" href="{% url 'sections:section-list' workspace='default' %}">
+          <a class="navbar-item" href="{% url 'tasks:section-list' workspace='default' %}">
             Sections
-          </a> {% endcomment %}
-
+          </a> 
+          <a class="navbar-item" href="{% url 'tasks:task-list' workspace='default' %}">
+            Tasks
+          </a> 
           <a class="navbar-item" href="{% url 'workspaces:workspace-list' workspace='default' %}">
             Workspaces
           </a>
@@ -54,6 +56,15 @@
             <a class="navbar-link">
               More
             </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="https://github.com/matagus/matorral" target="_blank">
+                Code
+              </a>
+              <a class="navbar-item" href="https://github.com/matagus/matorral/issues" target="_blank">
+                Report an issue
+              </a>
+            </div>
           </div>
         </div>
 
@@ -62,9 +73,10 @@
             <div class="navbar-item">
               <div class="buttons">
                 <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link" href="#">
-                    {{ user.username }}
-                  </a>
+                  <a href="#" class="navbar-link d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                    <span class="d-none d-sm-inline mx-1">{{user.username}}</span>
+                </a>
 
                   <div class="navbar-dropdown">
                     {% if user.is_staff %}

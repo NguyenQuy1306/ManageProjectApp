@@ -19,11 +19,11 @@ from api.authentication.forms import LoginForm
 from .views import homepage
 
 router = DefaultRouter()
-router.register(r'workspaces', workspaces_views.WorkspaceViewSet)
-# router.register(r'epics', stories_views.EpicViewSet)
-router.register(r'projects', projects_views.ProjectViewSet)
-# router.register(r'stories', stories_views.StoryViewSet)
-# router.register(r'tasks', stories_views.TaskViewSet)
+# router.register(r'workspaces', workspaces_views.WorkspaceViewSet)
+# # router.register(r'epics', tasks_views.EpicViewSet)
+# router.register(r'projects', projects_views.ProjectViewSet)
+# # router.register(r'tasks', tasks_views.StoryViewSet)
+# # router.register(r'tasks', tasks_views.TaskViewSet)
 
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
@@ -48,7 +48,7 @@ urlpatterns = [
     # App
     path(r'<workspace>/workspaces/', include('api.workspace.urls', namespace='workspaces')),
     # path(r'<workspace>/', include('api.dashboard.urls', namespace='dashboard')),
-    # path(r'<workspace>/', include('api.stories.urls', namespace='stories')),
+    path(r'<workspace>/', include('api.task.urls', namespace='tasks')),
     path(r'<workspace>/projects/', include('api.project.urls', namespace='projects')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

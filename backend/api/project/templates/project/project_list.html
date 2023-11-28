@@ -16,10 +16,9 @@
     <th>Starts</th>
     <th>Ends</th>
     <th><abbr title="Total Points">Pts</abbr></th>
-    <th>Stories</th>
+    <th>Tasks</th>
     <th>Progress</th>
     <th>Updated</th>
-    <th>Manager</th>
     <th>Actions</th>
   </tr>
 {% endblock %}
@@ -40,16 +39,11 @@
     <td>{{ project.starts_at|default:'' }}</td>
     <td>{{ project.ends_at|default:'' }}</td>
     <td>{{ project.total_points }}</td>
-    <td>{{ project.story_count }}</td>
+    <td>{{ project.task_count }}</td>
     <td>
       <progress class="progress is-primary" value="{{ project.progress }}" max="100">{{ project.progress }}%</progress>
     </td>
     <td>{{ project.updated_at|default:'' }}</td>
-    <td>
-      <a href="{% url 'users:user-detail' %}" class="has-text-grey-dark">
-        <strong>{{ project.owner }}</strong><br/>
-      </a>
-    </td>
     <td>
       <a class="button is-small is-link is-outlined" href="{% url 'projects:project-edit' current_workspace project.id %}?next={{ encoded_url }}" title="Edit">
 				<span class="icon is-small">

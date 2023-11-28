@@ -11,9 +11,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from rest_framework import viewsets
 
-from api.workspace.models import Workspace
-from api.section.forms import SectionFilterForm
-from api.section.tasks import section_set_assignee, section_set_state
+from api.task.forms import TaskFilterForm, SectionFilterForm
+from api.task.tasks import task_set_assignee, task_set_state
 
 from ..utils import get_clean_next_url
 from .forms import ProjectGroupByForm
@@ -22,19 +21,18 @@ from .serializers import ProjectSerializer
 from .tasks import duplicate_projects, remove_projects, reset_project
 
 
-
 @method_decorator(login_required, name='dispatch')
 class ProjectDetailView(DetailView):
 
     model = Project
 
     def get_children(self):
-        queryset = self.get_object().section_set\
-            .select_related( 'state')\
-            .order_by('priority')
+        queryset = self.get_object().task_set\
+            .order_by('section__priority', 'priority')
 
         config = dict(
-            state=('state__slug', lambda section: section.state.name),
+            # section=('section__name', lambda task: task.section and task.section.title or 'No Section'),
+            state=('state__slug', lambda task: task.state.name),
         )
 
         group_by = self.request.GET.get('group_by')
@@ -53,6 +51,7 @@ class ProjectDetailView(DetailView):
         context['group_by_form'] = ProjectGroupByForm(self.request.GET)
         context['objects_by_group'] = self.get_children()
         context['group_by'] = self.request.GET.get('group_by')
+        context['filters_form'] = TaskFilterForm(self.request.POST)
         context['current_workspace'] = self.kwargs['workspace']
         return context
 
@@ -65,23 +64,23 @@ class ProjectDetailView(DetailView):
             url = reverse_lazy('projects:project-list', args=[self.kwargs['workspace']])
 
         elif params.get('project-reset') == 'yes':
-            section_ids = [t[6:] for t in params.keys() if 'section-' in t]
-            reset_project.delay(section_ids)
+            task_ids = [t[6:] for t in params.keys() if 'task-' in t]
+            reset_project.delay(task_ids)
 
         else:
             state = params.get('state')
             if isinstance(state, list):
                 state = state[0]
             if state:
-                section_ids = [t[6:] for t in params.keys() if 'section-' in t]
-                section_set_state.delay(section_ids, state)
+                task_ids = [t[6:] for t in params.keys() if 'task-' in t]
+                task_set_state.delay(task_ids, state)
 
-            assignee = params.get('assignee')
-            if isinstance(assignee, list):
-                assignee = assignee[0]
-            if assignee:
-                section_ids = [t[6:] for t in params.keys() if 'section-' in t]
-                section_set_assignee.delay(section_ids, assignee)
+            # assignee = params.get('assignee')
+            # if isinstance(assignee, list):
+            #     assignee = assignee[0]
+            # if assignee:
+            #     task_ids = [t[6:] for t in params.keys() if 'task-' in t]
+            #     task_set_assignee.delay(task_ids, assignee)
 
         if self.request.headers.get('X-Fetch') == 'true':
             return JsonResponse(dict(url=url))
@@ -216,8 +215,7 @@ class ProjectCreateView(ProjectBaseView, CreateView):
         return self.form_valid(form)
 
     def form_valid(self, form):
-        form.instance.owner_id = self.request.user.id
-        form.instance.workspace = Workspace.objects.first()
+        form.instance.workspace = self.request.workspace
         return super().form_valid(form)
 
 

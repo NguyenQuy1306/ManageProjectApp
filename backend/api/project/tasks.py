@@ -31,13 +31,13 @@ def remove_projects(project_ids):
 
 @app.task(ignore_result=True)
 def reset_project(story_ids):
-    from api.section.models import Section
+    from api.task.models import Task
 
     # get affected project ids before removing them: evaluate queryset because
     # they're lazy :)
-    project_ids = list(Section.objects.filter(id__in=story_ids).values_list('project_id', flat=True))
+    project_ids = list(Task.objects.filter(id__in=story_ids).values_list('project_id', flat=True))
 
-    Section.objects.filter(id__in=story_ids).update(project=None)
+    Task.objects.filter(id__in=story_ids).update(project=None)
 
     for project in Project.objects.filter(id__in=project_ids):
         project.update_points_and_progress()

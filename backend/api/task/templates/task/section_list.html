@@ -1,0 +1,58 @@
+{% extends 'tasks/base.html' %}
+
+{% block page_title %}Epics :: {{ current_workspace }}{% endblock %}
+
+{% block object_add_url %}{% url 'tasks:section-add' current_workspace %}{% endblock %}
+{% block object_list_url %}{% url 'tasks:section-list' current_workspace %}{% endblock %}
+
+{% block table_head_content %}
+  <tr>
+    <th>
+      <input type="checkbox" class="selectAll" />
+    </th>
+    <th><abbr title="Identification Number">ID</abbr></th>
+    <th>Title</th>
+    <th>State</th>
+    <th>Priority</th>
+    <th><abbr title="Total Points">Pts</abbr></th>
+    <th>Stories</th>
+    <th>Progress</th>
+    <th>Section Leader</th>
+    <th>Actions</th>
+  </tr>
+{% endblock %}
+
+{% block table_body_content %}
+  {% for section in object_list %}
+  <tr {% if section.is_done %}class="has-text-grey-dark"{% endif %}>
+    <td>
+      <input type="checkbox" name="section-{{ section.id }}" />
+    </td>
+    <td>#{{ section.id }}</td>
+    <td>
+      <a href="{% url 'tasks:section-detail' current_workspace section.id %}" {% if section.is_done %}class="has-text-grey-dark"{% endif %}>
+        <strong>{{ section.title }}</strong><br/>
+      </a>
+      {% for tag in section.tags.all %}
+      <span class="tag is-light">{{ tag.name }}</span>
+      {% endfor %}
+    </td>
+    <td>{{ section.state }}</td>
+    <td>{{ section.priority }}</td>
+    <td>{{ section.total_points }}</td>
+    <td>{{ section.task_count }}</td>
+    <td>
+      <progress class="progress is-primary" value="{{ section.progress }}" max="100">{{ section.progress }}%</progress>
+    </td>
+    <td>{{ section.section_leader.username }}</td>
+    <td>
+      <a class="button is-small is-link is-outlined" href="{% url 'tasks:section-edit' current_workspace section.id %}?next={{ encoded_url }}" title="Edit">
+				<span class="icon is-small">
+					<i class="fas fa-edit"></i>
+				</span>
+				<small>edit</small>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+{% endblock %}

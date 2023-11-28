@@ -1,0 +1,28 @@
+<div class="is-inline-block card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img src="https://bulma.io/images/placeholders/96x96.png" alt="{{ section.requester.username }}">
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">{{ section.title|truncatechars:150 }}</p>
+        </div>
+      </div>
+  
+      <div class="content">
+        {{ section.description|truncatechars:350 }} <a>@{{ section.requester.username }}</a>.
+        {% for tag in section.tags.all %}
+          <a href="#">#{{ tag.name }}</a>
+        {% endfor %}
+        <br>
+        <time datetime="{{ section.modified_at|date }}">{{ section.modified_at }}</time>
+      </div>
+    </div>
+    <footer class="card-footer">
+      <a href="{% url 'sections:section-detail' current_workspace section.id %}" class="card-footer-item">Details</a>
+      <a href="{% url 'sections:section-edit' current_workspace section.id %}" class="card-footer-item">Edit</a>
+      <a href="{% url 'sections:section-edit' current_workspace section.id %}" class="card-footer-item">{{ next_action }}</a>
+    </footer>
+  </div>

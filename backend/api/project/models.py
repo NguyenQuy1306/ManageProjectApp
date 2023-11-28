@@ -37,7 +37,7 @@ class Project(ModelWithProgress, ModelWithBudget):
         ]
         verbose_name = 'project'
         verbose_name_plural = 'projects'
-
+    slug = models.SlugField(blank = True , null= True)
     state = models.PositiveIntegerField(db_index=True, choices=STATE_TYPES, default=STATE_UNSTARTED)
     
     workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE)
@@ -49,6 +49,9 @@ class Project(ModelWithProgress, ModelWithBudget):
 
     history = HistoricalRecords()
 
+    def save(self, *args, **kwargs):
+        self.slug=slugify(self.title)
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.title
 

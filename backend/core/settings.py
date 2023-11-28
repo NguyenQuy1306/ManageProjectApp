@@ -70,7 +70,7 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     'api.workspace',
     'api.project',
-    'api.section',
+    'api.task',
     'api.dashboard',
 )
 

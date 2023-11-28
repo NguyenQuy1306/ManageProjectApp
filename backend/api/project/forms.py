@@ -4,7 +4,10 @@ from django.forms import Form, ChoiceField, Select
 class ProjectGroupByForm(Form):
     CHOICES = [
         ('', 'None'),
-        ('state', 'State'),
+        # ('state', 'State'),
+        # ('section','Section'),
+        # ('priority', 'Priority'),
+        # ('weight','Weight')
     ]
 
     group_by = ChoiceField(

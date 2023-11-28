@@ -84,13 +84,13 @@ class Section(ModelWithProgress, ModelWithBudget):
 
     tags = TagField(blank=True)
 
-    hisection = HistoricalRecords()
+    history = HistoricalRecords()
 
     def get_absolute_url(self):
-        return reverse('section:section-detail', args=[self.project.slug, str(self.id)])
+        return reverse('tasks:section-detail', args=[self.project.slug, str(self.id)])
 
     def is_done(self):
-        if self.state.stype == StateModel.DONE:
+        if self.state == StateModel.DONE:
             return True
 
         return False
@@ -155,13 +155,13 @@ class Task(BaseModel):
 
     tags = TagField(blank=True)
 
-    hisection = HistoricalRecords()
+    history = HistoricalRecords()
 
     def get_absolute_url(self):
-        return reverse('section:task-detail', args=[self.project.slug, str(self.id)])
+        return reverse('tasks:task-detail', args=[self.project.slug, str(self.id)])
 
     def is_done(self):
-        if self.state.stype == StateModel.DONE:
+        if self.state == StateModel.DONE:
             return True
 
         return False
@@ -179,59 +179,59 @@ class Task(BaseModel):
             cloned.tags.add(tag)
 
 
-# @receiver(pre_save, sender=Task)
-# def handle_section_pre_save(sender, **kwargs):
-#     if not kwargs.get('raw', False):
-#         instance = kwargs['instance']
+@receiver(pre_save, sender=Task)
+def handle_task_pre_save(sender, **kwargs):
+    if not kwargs.get('raw', False):
+        instance = kwargs['instance']
 
-#         if instance.id is None:
-#             previous_section = None
-#         else:
-#             try:
-#                 previous_section = Section.objects.get(section__id=instance.id)
-#             except Section.DoesNotExist:
-#                 previous_section = None
+        if instance.id is None:
+            previous_task = None
+        else:
+            try:
+                previous_task = Task.objects.get(task__id=instance.id)
+            except Task.DoesNotExist:
+                previous_task = None
 
-#         # the section has changed: update here the previous one,
-#         # the new one will be updated in post_save handler :)
-#         if (previous_section != instance.section) and previous_section is not None:
-#             from .tasks import handle_section_change
-#             # 10 seconds till the section changes to the new one so this will have
-#             # one section less
-#             handle_section_change.apply_async((previous_section.id, ), countdown=10)
+        # the section has changed: update here the previous one,
+        # the new one will be updated in post_save handler :)
+        if (previous_task != instance.task) and previous_task is not None:
+            from .tasks import handle_section_change
+            # 10 seconds till the section changes to the new one so this will have
+            # one section less
+            handle_section_change.apply_async((previous_task.id, ), countdown=10)
 
-#         if instance.id is None:
-#             previous_project = None
-#         else:
-#             from matorral.projects.models import Project
-#             try:
-#                 previous_project = Project.objects.get(section__id=instance.id)
-#             except Project.DoesNotExist:
-#                 previous_project = None
+        if instance.id is None:
+            previous_project = None
+        else:
+            from api.project.models import Project
+            try:
+                previous_project = Project.objects.get(task__id=instance.id)
+            except Project.DoesNotExist:
+                previous_project = None
 
-#         # the project has changed: update here the previous one,
-#         # the new one will be updated in post_save handler :)
-#         if (previous_project != instance.project) and previous_project is not None:
-#             from matorral.projects.tasks import handle_project_change
-#             # 10 seconds till the project changes to the new one so this will have
-#             # one section less
-#             handle_project_change.apply_async((previous_project.id, ), countdown=10)
-
-
-# @receiver(post_save, sender=Task)
-# def handle_section_post_save(sender, **kwargs):
-#     from .tasks import handle_section_change
-#     if not kwargs.get('raw', False):
-#         instance = kwargs['instance']
-#         handle_section_change.delay(instance.id)
+        # the project has changed: update here the previous one,
+        # the new one will be updated in post_save handler :)
+        if (previous_project != instance.project) and previous_project is not None:
+            from api.project.tasks import handle_project_change
+            # 10 seconds till the project changes to the new one so this will have
+            # one section less
+            handle_project_change.apply_async((previous_project.id, ), countdown=10)
 
 
-# @receiver(post_delete, sender=Task)
-# def handle_section_post_delete(sender, **kwargs):
-#     from .tasks import handle_section_change
-#     if not kwargs.get('raw', False):
-#         instance = kwargs['instance']
-#         handle_section_change.delay(instance.id)
+@receiver(post_save, sender=Task)
+def handle_task_post_save(sender, **kwargs):
+    from .tasks import handle_task_change
+    if not kwargs.get('raw', False):
+        instance = kwargs['instance']
+        handle_task_change.delay(instance.id)
+
+
+@receiver(post_delete, sender=Task)
+def handle_task_post_delete(sender, **kwargs):
+    from .tasks import handle_task_change
+    if not kwargs.get('raw', False):
+        instance = kwargs['instance']
+        handle_task_change.delay(instance.id)
 
 
 class Todo(BaseModel):
@@ -240,7 +240,7 @@ class Todo(BaseModel):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse('section:task-view', args=[str(self.id)])
+        return reverse('tasks:task-view', args=[str(self.id)])
 
     def duplicate(self, parent=None):
         cloned = copy.copy(self)
