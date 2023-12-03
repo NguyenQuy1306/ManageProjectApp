@@ -24,7 +24,7 @@ from .serializers import SectionSerializer, TaskSerializer, TodoSerializer
 from .tasks import (duplicate_sections, duplicate_tasks, section_set_section_leader,
                     section_set_state, remove_sections, remove_tasks, reset_section,
                     task_set_assignee, task_set_state, task_set_project,
-                    task_set_section)
+                    task_set_section, handle_task_change, handle_section_change)
 from ..utils import get_clean_next_url
 
 
@@ -331,6 +331,7 @@ class SectionList(BaseListView):
             else:
                 context['add_to'] = 'project'
                 context['add_to_object'] = project
+ 
         context['current_workspace'] = self.kwargs['workspace']
         return context
 

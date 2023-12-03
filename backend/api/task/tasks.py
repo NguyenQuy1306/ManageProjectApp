@@ -40,6 +40,10 @@ def task_set_state(task_ids, state_slug):
         return
 
     Task.objects.filter(id__in=task_ids).update(state=state)
+    # Iterate through the tasks and update corresponding section and project
+    for task_id in task_ids:
+        handle_task_change.delay(task_id)
+
 
 
 @app.task(ignore_result=True)
@@ -107,7 +111,7 @@ def handle_task_change(task_id):
     except Task.DoesNotExist:
         return
 
-    if task.section is not None:
+    if task.section is not None and task.state == TaskState.DONE:
         task.section.update_points_and_progress()
         task.section.update_state()
 

@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 import copy
 
 from django.conf import settings
@@ -12,30 +13,6 @@ from tagulous.models import TagField
 
 from api.models import BaseModel, ModelWithProgress, ModelWithBudget
 from api.project.models import ProjectMember
-
-class StateModel(models.Model):
-    class Meta:
-        abstract = True
-        ordering = ['stype', 'name']
-
-    UNSTARTED = 0
-    STARTED = 1
-    INSPECT = 2
-    DONE = 3
-
-    TYPES = (
-        (UNSTARTED, 'Unstart'),
-        (STARTED, 'Started'),
-        (INSPECT, 'Inspect'),
-        (DONE, 'Done'),
-    )
-
-    slug = models.SlugField(max_length=2, primary_key=True)
-    name = models.CharField(max_length=100, db_index=True)
-    stype = models.PositiveIntegerField(db_index=True, choices=TYPES, default=UNSTARTED)
-
-    def __str__(self):
-        return self.name
 
 
 class SectionState(models.IntegerChoices):
@@ -88,11 +65,12 @@ class Section(ModelWithProgress, ModelWithBudget):
 
     history = HistoricalRecords()
 
+        
     def get_absolute_url(self):
         return reverse('tasks:section-detail', args=[self.project.slug, str(self.id)])
 
     def is_done(self):
-        if self.state == StateModel.DONE:
+        if self.state == SectionState.DONE:
             return True
 
         return False
@@ -109,13 +87,19 @@ class Section(ModelWithProgress, ModelWithBudget):
     def update_state(self):
         # set section as started when it has one or more started stories
         if Task.objects.filter(state__stype=TaskState.STARTED, section=self).count() > 0:
-            if self.state.stype != SectionState.STARTED:
-                self.state = SectionState.objects.filter(stype=SectionState.STARTED)[0]
+            if self.state != SectionState.STARTED:
+                self.state = SectionState.STARTED
 
-        elif Task.objects.filter(state__stype=TaskState.UNSTARTED, section=self).count() == self.section_count:
-            if self.state.stype != SectionState.UNSTARTED:
-                self.state = SectionState.objects.filter(stype=SectionState.UNSTARTED)[0]
+        # set section as unstarted when all its stories are unstarted
+        elif Task.objects.filter(state__stype=TaskState.UNSTARTED, section=self).count() == self.task_count:
+            if self.state != SectionState.UNSTARTED:
+                self.state = SectionState.UNSTARTED
+        if self.section is not None:
+            self.section.update_points_and_progress()
+            self.section.update_state()
 
+        if self.project is not None:
+            self.project.update_points_and_progress()
         self.save()
 class StatusChoices(models.TextChoices):
     BUSY = "B", "Busy"
@@ -158,6 +142,12 @@ class Task(BaseModel):
     tags = TagField(blank=True)
 
     history = HistoricalRecords()
+
+    def save(self, *args, **kwargs):
+        # Update counts and points for the new section and project
+        self.points = self.priority * 3 + self.weight * 2
+
+        return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('tasks:task-detail', args=[self.project.slug, str(self.id)])
