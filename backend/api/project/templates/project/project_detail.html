@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block page_title %}[Sprint] {{ object.title }} :: {{ current_workspace }}{% endblock %}
+{% block page_title %}[Project] {{ object.title }} :: {{ current_workspace }}{% endblock %}
 
 {% block object_list_url %}{% url 'projects:project-list' current_workspace %}{% endblock %}
 
@@ -11,7 +11,7 @@
       <div class="level-left">
         <nav class="breadcrumb is-large" aria-label="breadcrumbs">
           <ul>
-            <li><a href="{% url 'projects:project-list' current_workspace %}">Sprints</a></li>
+            <li><a href="{% url 'projects:project-list' current_workspace %}">Projects</a></li>
             <li class="is-active">
               <a href="#" aria-current="page">
                 {{ object.title }}
@@ -34,7 +34,19 @@
             <small>Edit</small>
           </a>
         </div>
-
+        {% comment %} <div class="level-item">
+          <div class="field has-addons">
+            <p class="control">
+              <a class="button is-link" href="{% url 'tasks:section-add' current_workspace %}?next={{ encoded_url }}&amp;project={{ project.id }}">
+                <span class="icon is-small">
+                  <i class="fas fa-plus"></i>
+                </span>
+                <small>Create Section</small>
+              </a>
+            </p>
+          </div>
+        </div> {% endcomment %}
+  
         <div class="level-item">
           <div class="field has-addons">
             <p class="control">
@@ -91,7 +103,7 @@
       <div class="level-left">
         <nav class="breadcrumb is-large" aria-label="breadcrumbs" style="margin: 0;">
           <ul>
-            <li class="is-active"><a href="#" aria-current="page">Tasks</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Sections</a></li>
           </ul>
         </nav>
 
@@ -127,7 +139,7 @@
               <span class="icon is-small">
                 <i class="fas fa-minus"></i>
               </span>
-              <small>Remove from Sprint</small>
+              <small>Remove from Project</small>
 						</button>
 					</p>
 				</div>
@@ -136,16 +148,27 @@
 			<div class="level-item">
 				<div class="field has-addons">
 					<p class="control">
-            <a class="button is-link" href="{% url 'tasks:task-add' current_workspace %}?next={{ encoded_url }}&amp;project={{ project.id }}">
+            <a class="button is-link" href="{% url 'tasks:section-add' current_workspace %}?next={{ encoded_url }}&amp;project={{ project.id }}">
               <span class="icon is-small">
                 <i class="fas fa-plus"></i>
               </span>
-              <small>Create</small>
+              <small>Create Section</small>
 						</a>
 					</p>
 				</div>
 			</div>
-
+      <div class="level-item">
+				<div class="field has-addons">
+					<p class="control">
+            <a class="button is-link" href="{% url 'tasks:task-add' current_workspace %}?next={{ encoded_url }}&amp;project={{ project.id }}">
+              <span class="icon is-small">
+                <i class="fas fa-plus"></i>
+              </span>
+              <small>Create Task</small>
+						</a>
+					</p>
+				</div>
+			</div>
       <div class="level-item">
 				<div class="field has-addons">
 					<p class="control">
@@ -178,46 +201,37 @@
             </th>
             <th><abbr title="Identification Number">ID</abbr></th>
             <th>Title</th>
-            <th>Section</th>
             <th>State</th>
             <th>Priority</th>
             <th><abbr title="Points">Pts</abbr></th>
-            <th>Assignor</th>
-            <th>Assignee</th>
+            <th>Leader</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {% for task in object_list %}
-          <tr {% if task.is_done %}class="has-text-grey-dark"{% endif %}>
+          {% for section in object_list %}
+          <tr {% if section.is_done %}class="has-text-grey-dark"{% endif %}>
             <td>
               <div class="field">
-                <input type="checkbox" name="task-{{ task.id }}" />
+                <input type="checkbox" name="section-{{ section.id }}" />
               </div>
             </td>
-            <td>#{{ task.id }}</td>
+            <td>#{{ section.id }}</td>
             <td>
-              <a href="{% url 'tasks:task-detail' current_workspace task.id %}?next={{ encoded_url }}" {% if task.is_done %}class="has-text-grey-dark"{% endif %}>
-                <strong>{{ task.title }}</strong><br/>
+              <a href="{% url 'tasks:section-detail' current_workspace section.id %}?next={{ encoded_url }}" {% if section.is_done %}class="has-text-grey-dark"{% endif %}>
+                <strong>{{ section.title }}</strong><br/>
               </a>
-              {% for tag in task.tags.all %}
+              {% for tag in section.tags.all %}
               <span class="tag is-light">{{ tag.name }}</span>
               {% endfor %}
             </td>
+
+            <td>{{ section.state }}</td>
+            <td>{{ section.priority }}</td>
+            <td>{{ section.points }}</td>
+            <td>{{ section.section_leader.username }}</td>
             <td>
-              {% if task.section %}
-              <a href="{% url 'tasks:section-detail' current_workspace task.section.id %}" {% if task.is_done %}class="has-text-grey-dark"{% endif %}>
-                {{ task.section.title }}
-              </a>
-              {% endif %}
-            </td>
-            <td>{{ task.state }}</td>
-            <td>{{ task.priority }}</td>
-            <td>{{ task.points }}</td>
-            <td>{{ task.assignor.username }}</td>
-            <td>{{ task.assignee.username }}</td>
-            <td>
-              <a class="button is-link is-small is-outlined" href="{% url 'tasks:task-edit' current_workspace task.id %}?next={{ encoded_url }}" title="Edit">
+              <a class="button is-link is-small is-outlined" href="{% url 'tasks:section-edit' current_workspace section.id %}?next={{ encoded_url }}" title="Edit">
                 <span class="icon is-small">
                   <i class="fas fa-edit"></i>
                 </span>

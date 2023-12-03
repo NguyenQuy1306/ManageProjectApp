@@ -1,38 +1,70 @@
 from itertools import groupby
 
 import ujson
-
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.contrib import messages
+from django.shortcuts import redirect
+
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from rest_framework import viewsets
 
-from api.task.forms import TaskFilterForm, SectionFilterForm
-from api.task.tasks import task_set_assignee, task_set_state
+from api.task.forms import TaskFilterForm, SectionFilterForm, TaskGroupByForm
+from api.task.tasks import task_set_assignee, task_set_state,section_set_state
+from api.workspace.models import Workspace
+from api.user.models import User
 
 from ..utils import get_clean_next_url
-from .forms import ProjectGroupByForm
-from .models import Project
+from .forms import ProjectGroupByForm, ProjectInviteForm
+from .models import Project, ProjectMember
 from .serializers import ProjectSerializer
 from .tasks import duplicate_projects, remove_projects, reset_project
 
+from notifications import models as notification_models
 
+
+@login_required
+def accept_invitation(request, notification_id):
+    notification = get_object_or_404(Notification, id=notification_id)
+    project_member = get_object_or_404(ProjectMember, invitation_notification=notification)
+
+    # Handle the acceptance logic
+    # ...
+
+    # Delete the notification once processed
+    notification.delete()
+
+    return redirect('your_success_redirect_view')
+
+@login_required
+def decline_invitation(request, notification_id):
+    notification = get_object_or_404(Notification, id=notification_id)
+    project_member = get_object_or_404(ProjectMember, invitation_notification=notification)
+
+    # Handle the decline logic
+    # ...
+
+    # Delete the notification once processed
+    notification.delete()
+
+    return redirect('your_success_redirect_view')
 @method_decorator(login_required, name='dispatch')
 class ProjectDetailView(DetailView):
 
     model = Project
 
     def get_children(self):
-        queryset = self.get_object().task_set\
-            .order_by('section__priority', 'priority')
+        queryset = self.get_object().section_set\
+            .select_related('project')\
+            .order_by('project__budget', 'budget')
 
         config = dict(
-            # section=('section__name', lambda task: task.section and task.section.title or 'No Section'),
-            state=('state__slug', lambda task: task.state.name),
+            project=('project__name', lambda section: section.project and section.project.title or 'No Epic'),
         )
 
         group_by = self.request.GET.get('group_by')
@@ -51,43 +83,41 @@ class ProjectDetailView(DetailView):
         context['group_by_form'] = ProjectGroupByForm(self.request.GET)
         context['objects_by_group'] = self.get_children()
         context['group_by'] = self.request.GET.get('group_by')
-        context['filters_form'] = TaskFilterForm(self.request.POST)
+        context['filters_form'] = SectionFilterForm(self.request.POST)
         context['current_workspace'] = self.kwargs['workspace']
         return context
 
     def post(self, *args, **kwargs):
         params = ujson.loads(self.request.body)
         url = self.request.get_full_path()
-
+        
         if params.get('remove') == 'yes':
             remove_projects.delay([self.get_object().id])
             url = reverse_lazy('projects:project-list', args=[self.kwargs['workspace']])
 
         elif params.get('project-reset') == 'yes':
-            task_ids = [t[6:] for t in params.keys() if 'task-' in t]
-            reset_project.delay(task_ids)
+            section_ids = [t[6:] for t in params.keys() if 'section-' in t]
+            reset_project.delay(section_ids)
 
         else:
             state = params.get('state')
             if isinstance(state, list):
                 state = state[0]
             if state:
-                task_ids = [t[6:] for t in params.keys() if 'task-' in t]
-                task_set_state.delay(task_ids, state)
+                section_ids = [t[6:] for t in params.keys() if 'section-' in t]
+                section_set_state.delay(section_ids, state)
 
             # assignee = params.get('assignee')
             # if isinstance(assignee, list):
             #     assignee = assignee[0]
             # if assignee:
-            #     task_ids = [t[6:] for t in params.keys() if 'task-' in t]
-            #     task_set_assignee.delay(task_ids, assignee)
+            #     section_ids = [t[6:] for t in params.keys() if 'section-' in t]
+            #     section_set_assignee.delay(section_ids, assignee)
 
         if self.request.headers.get('X-Fetch') == 'true':
             return JsonResponse(dict(url=url))
         else:
             return HttpResponseRedirect(url)
-
-
 @method_decorator(login_required, name='dispatch')
 class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
@@ -137,7 +167,7 @@ class BaseListView(ListView):
         params = dict(workspace__slug=self.kwargs['workspace'])
 
         if q is None:
-            qs = qs.filter(**params)
+            qs = qs.all()
         else:
             params.update(self._build_filters(q))
             qs = qs.filter(**params)
@@ -157,7 +187,6 @@ class ProjectList(BaseListView):
     filter_fields = {}
     select_related = None
     prefetch_related = None
-
     def post(self, *args, **kwargs):
         params = ujson.loads(self.request.body)
 
@@ -176,14 +205,11 @@ class ProjectList(BaseListView):
             return JsonResponse(dict(url=url))
         else:
             return HttpResponseRedirect(url)
-
-
 class ProjectBaseView(object):
     model = Project
     fields = [
-        'title', 'description', 'starts_at', 'ends_at'
+        'title', 'description','budget', 'starts_at', 'ends_at'
     ]
-
     @property
     def success_url(self):
         return get_clean_next_url(self.request, reverse_lazy('projects:project-list', args=[self.kwargs['workspace']]))
@@ -204,6 +230,49 @@ class ProjectBaseView(object):
         context['project_add_url'] = project_add_url
         context['current_workspace'] = self.kwargs['workspace']
         return context
+    
+@method_decorator(login_required, name='dispatch')
+class InviteProjectMemberView(ProjectBaseView, CreateView):
+
+    def post(self, *args, **kwargs):
+        data = ujson.loads(self.request.body)
+        form = self.get_form_class()(data)
+        return self.form_valid(form)
+
+    def form_valid(self, form):
+        project = self.get_project()
+        form.instance.workspace = Workspace.objects.get(pk=1)
+        email = form.cleaned_data['email']
+
+        # Check if the user with the provided email exists
+        user = User.objects.filter(email=email).first()
+
+        if user:
+            # Check if the user is already a member of the project
+            if not ProjectMember.objects.filter(project=project, user=user).exists():
+                # Add the user as a member
+                project_member = ProjectMember.objects.create(
+                    project=project,
+                    user=user,
+                    role=ProjectMember.MB,
+                    status=ProjectMember.ACTIVE
+                )
+
+                # Send invitation notification
+                project_member.send_invitation_notification()
+
+                messages.success(self.request, f"Invitation sent to {email}.")
+            else:
+                messages.warning(self.request, f"{email} is already a member of the project.")
+        else:
+            messages.warning(self.request, f"No user found with email {email}.")
+
+        return redirect(reverse_lazy('projects:project-detail', args=[str(project.id)]))
+
+    def form_invalid(self, form):
+        project = self.get_project()
+        messages.error(self.request, "Invalid form submission. Please check your input.")
+        return redirect(reverse_lazy('projects:project-detail', args=[str(project.id)]))
 
 
 @method_decorator(login_required, name='dispatch')
@@ -215,7 +284,8 @@ class ProjectCreateView(ProjectBaseView, CreateView):
         return self.form_valid(form)
 
     def form_valid(self, form):
-        form.instance.workspace = self.request.workspace
+        form.instance.workspace = Workspace.objects.get(pk=1)
+        form.instance.owner_id = self.request.user.id
         return super().form_valid(form)
 
 

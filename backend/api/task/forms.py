@@ -48,3 +48,14 @@ class SectionGroupByForm(Form):
     ]
 
     group_by = ChoiceField(choices=CHOICES, required=False, widget=Select(attrs={'onchange': 'this.form.submit();'}))
+class TaskGroupByForm(Form):
+    state = ChoiceField(choices = TaskState.choices)
+    CHOICES = [
+        ('', 'None'),
+        ('assignor', 'assignor'),
+        ('assignee', 'Assignee'),
+        ('state', 'State'),
+        ('project', 'Project'),
+    ]
+
+    group_by = ChoiceField(choices=CHOICES, required=False, widget=Select(attrs={'onchange': 'this.form.submit();'}))

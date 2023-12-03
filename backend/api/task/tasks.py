@@ -56,7 +56,13 @@ def duplicate_sections(section_ids):
 @app.task(ignore_result=True)
 def remove_sections(section_ids):
     Section.objects.filter(id__in=section_ids).delete()
+# @app.task(ignore_result=True)
+# def remove_sections(project_ids):
+#     Section.objects.filter(id__in=project_ids).delete()
 
+#     from api.project.models import Project
+#     for project in Project.objects.filter(project__id__in=project_ids).distinct():
+#         project.update_points_and_progress()
 
 @app.task(ignore_result=True)
 def section_set_section_leader(section_ids, user_id):
@@ -142,3 +148,15 @@ def task_set_project(task_ids, project_id):
     for task in Task.objects.filter(id__in=task_ids):
         task.project = project
         task.save()
+        
+@app.task(ignore_result=True)
+def section_set_project(section_ids, project_id):
+    from api.project.models import Project
+    try:
+        project = Project.objects.get(pk=project_id)
+    except Project.DoesNotExist:
+        return
+
+    for Section in Section.objects.filter(id__in=section_ids):
+        Section.project = project
+        Section.save()

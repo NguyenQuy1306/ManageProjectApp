@@ -1,0 +1,19 @@
+.active {
+  background-color: #4ba746;
+  color: black;
+}
+
+a.navbar-brand {
+  vertical-align: middle;
+  display: block;
+  font-size: 20px;
+  margin-bottom: -10px;
+}
+
+li{
+  padding: 10px;
+}
+
+.form-group label{
+  font-size: 13px;
+}

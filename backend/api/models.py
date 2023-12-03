@@ -63,8 +63,8 @@ class ModelWithProgress(models.Model):
         return self.title
 
     def update_points_and_progress(self, save=True):
-        Task = apps.get_model('stories', 'Task')
-        TaskState = apps.get_model('stories', 'TaskState')
+        Task = apps.get_model('tasks', 'Task')
+        TaskState = apps.get_model('tasks', 'TaskState')
 
         parent_dict = {self._meta.model_name: self.id}
 
@@ -78,7 +78,7 @@ class ModelWithProgress(models.Model):
 
         self.total_points = total_points
         self.points_done = points_done
-        self.Task_count = Task.objects.filter(**parent_dict).count()
+        self.task_count = Task.objects.filter(**parent_dict).count()
 
         if total_points > 0:
             self.progress = int(float(points_done) / total_points * 100)

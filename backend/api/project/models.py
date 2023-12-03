@@ -83,6 +83,7 @@ class ProjectRoleChoices(models.TextChoices):
     MB = "M", "Member"
     
 from tagulous.models import TagField
+from notifications.models import Notification
 
 class ProjectMember(models.Model):
     
@@ -94,6 +95,19 @@ class ProjectMember(models.Model):
     working_hours_day = models.PositiveIntegerField(default = 8)
     role = models.CharField(choices = ProjectRoleChoices.choices, default= ProjectRoleChoices.MB,max_length=20, null = False)
     status = models.CharField(choices = StatusChoices.choices, default = StatusChoices.ACTIVE, max_length=10 ) # set INACTIVE when delete User
-    
+    invitation_notification = models.ForeignKey(Notification, null=True, blank=True, on_delete=models.SET_NULL)     
+    def send_invitation_notification(self):
+        # Create a notification for the invited user
+        notification = Notification.objects.create(
+            recipient=self.user,
+            verb='invitation',
+            description=f'You have been invited to join the project {self.project.title}.',
+            action_object=self.project,
+        )
+
+        # Link the notification to the ProjectMember
+        self.invitation_notification = notification
+        self.save()
     class Meta:
         unique_together = ('user', 'project')
+    

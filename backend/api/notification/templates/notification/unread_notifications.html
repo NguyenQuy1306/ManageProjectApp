@@ -1,0 +1,16 @@
+<!-- unread_notifications.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Unread Notifications</h2>
+  {% if notifications %}
+    <ul>
+      {% for notification in notifications %}
+        <li>{{ notification.description }} - {{ notification.timestamp }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No unread notifications.</p>
+  {% endif %}
+{% endblock %}

@@ -3,7 +3,7 @@ from api.taskapp.celery import app
 from .models import Section, SectionState, Task, TaskState
 
 @app.task(ignore_result=True)
-def duplicate_stories(task_ids):
+def duplicate_tasks(task_ids):
     for pk in task_ids:
         try:
             task = Task.objects.get(pk=pk)
@@ -14,7 +14,7 @@ def duplicate_stories(task_ids):
 
 
 @app.task(ignore_result=True)
-def remove_stories(task_ids):
+def remove_tasks(task_ids):
     Task.objects.filter(id__in=task_ids).delete()
 
     for section in Section.objects.filter(task__id__in=task_ids).distinct():
@@ -141,3 +141,14 @@ def task_set_project(task_ids, project_id):
     for task in Task.objects.filter(id__in=task_ids):
         task.project = project
         task.save()
+@app.task(ignore_result=True)
+def section_set_project(section_ids, project_id):
+    from api.project.models import Project
+    try:
+        project = Project.objects.get(pk=project_id)
+    except Project.DoesNotExist:
+        return
+
+    for section in Task.objects.filter(id__in=section_ids):
+        section.project = project
+        section.save()

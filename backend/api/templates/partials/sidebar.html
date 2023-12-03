@@ -1,0 +1,86 @@
+<nav id="sidebar" style="height:100%;">
+  <ul class="list-unstyled components">
+    <li class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" style="margin-top:15px;">
+      <a href="{% url 'dashboard' %}">Dashboard</a>
+    </li>
+
+    <li>
+      <a href="#createAccounts" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dside">Accounts</a>
+        <ul class="collapse list-unstyled" id="createAccounts">
+          <li class="{% if request.resolver_match.url_name == 'add_clients' %}active{% endif %}">
+            <a href="{% url 'add_clients' %}">Add Client</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'view_clients' %}active{% endif %}">
+            <a href="{% url 'view_clients' %}">View Clients</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'add_employee' %}active{% endif %}">
+            <a href="{% url 'add_employee' %}">Add Employee</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'employee' %}active{% endif %}">
+            <a href="{% url 'employee' %}">View Employee</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'employee_access' %}active style='color:black;' {% endif %}">
+            <a href="{% url 'employee_access' %}">Employee Access</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'designation' %}active style='color:black;' {% endif %}">
+            <a href="{% url 'designation' %}">Designation</a>
+          </li>
+        </ul>
+    </li>
+
+    <li>
+      <a href="#projects" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dside">Project</a>
+      <ul class="collapse list-unstyled" id="projects">
+        <li class="{% if request.resolver_match.url_name == 'projects' %}active{% endif %}">
+          <a href="{% url 'projects' %}">Projects List</a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == 'add_project' %}active{% endif %}">
+          <a href="{% url 'add_project' %}">Add Projects</a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == 'interview' %}active{% endif %}">
+          <a href="{% url 'interview' %}">Assign Projects</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#careers" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dside">Careers</a>
+      <ul class="collapse list-unstyled" id="careers">
+        <li class="{% if request.resolver_match.url_name == 'interview' %}active{% endif %}">
+          <a href="{% url 'interview' %}">Interviews</a>
+        </li>
+        <li class="{% if request.resolver_match.url_name == 'technology' %}active{% endif %}">
+          <a href="{% url 'technology' %}">Manage Technology</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#performance" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dside">Performance</a>
+      <ul class="collapse list-unstyled" id="performance">
+        <li class="{% if request.resolver_match.url_name == 'question_list' or request.resolver_match.url_name == 'add_question' or request.resolver_match.url_name == 'edit_question' %}active{% endif %}">
+          <a href="{% url 'question_list' %}">Manage Questions</a>
+        </li>
+        <li>
+          <a href="#">Add Performance</a>
+        </li>
+        <li>
+          <a href="#">Performance Report</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="#others" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle dside">Others</a>
+      <ul class="collapse list-unstyled" id="others">
+        <li class="{% if request.resolver_match.url_name == 'knowledge' %}active{% endif %}">
+          <a href="{% url 'knowledge' %}">Knowledge Entry</a>
+        </li>
+        <li>
+          <a href="#">Change Admin Password</a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+</nav>

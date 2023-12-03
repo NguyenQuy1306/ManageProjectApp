@@ -11,7 +11,9 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from api.project.views import BaseListView
 from api.project.models import Project
+from api.workspace.models import Workspace
 
+from api.workspace.models import Workspace
 from rest_framework import viewsets
 
 import ujson
@@ -32,13 +34,12 @@ class SectionDetailView(DetailView):
     model = Section
 
     def get_children(self):
-        queryset = self.get_object().task_set.select_related('assignor', 'assignee', 'project', 'state')
+        queryset = self.get_object().task_set.select_related('assignor', 'assignee', 'project')
 
         config = dict(
             project=('project__starts_at', lambda task: task.project and task.project.title or 'No project'),
-            state=('state__slug', lambda task: task.state),
             assignor=('assignor__id', lambda task: task.assignor and task.assignor.username or 'Unset'),
-            
+            assignee=('assignee__id', lambda task: task.assignee and task.assignee.username or 'Unassigned'),
         )
 
         group_by = self.request.GET.get('group_by')
@@ -124,7 +125,7 @@ class TaskBaseView(object):
         'title', 'description',
         'section', 'project',
         'assignor', 'assignee',
-        'priority', 'points',
+        'priority','weight', 'points',
         'state', 'tags',
     ]
 
@@ -153,9 +154,15 @@ class TaskBaseView(object):
 
 @method_decorator(login_required, name='dispatch')
 class TaskCreateView(TaskBaseView, CreateView):
-
+    model = Task
+    fields = [
+        'title', 'description',
+        'assignee',
+        'priority','weight', 'points',
+        'state', 'tags',
+    ]
     def get_initial(self):
-        initial_dict = dict(section_leader=self.request.user.id, state='pl')
+        initial_dict = dict( state='pl')
 
         section_id = self.request.GET.get('section')
         if section_id is not None:
@@ -174,11 +181,21 @@ class TaskCreateView(TaskBaseView, CreateView):
     def post(self, *args, **kwargs):
         data = ujson.loads(self.request.body)
         form = self.get_form_class()(data)
+        # form.instance.project = self.kwargs['project']
+        # form.instance.section = self.kwargs['section']
         return self.form_valid(form)
 
     def form_valid(self, form):
-        form.instance.workspace = self.request.workspace
-
+        form.instance.workspace = Workspace.objects.get(pk=1)
+        # form.instance.project = Project.objects.get(pk = int(self.request.GET.get('project')))
+        section_id = self.request.GET.get('section')
+        if section_id is not None:
+            form.instance.section = Section.objects.get(pk= int(self.request.GET.get('section')))
+            form.instance.project = form.instance.section.project
+        project_id = self.request.GET.get('project')
+        if project_id is not None:
+            form.instance.project = Project.objects.get(pk = project_id)
+        form.instance.assignor = self.request.user
         response = super().form_valid(form)
 
         url = self.get_success_url()
@@ -217,7 +234,7 @@ class SectionBaseView(object):
     model = Section
     fields = [
         'title', 'description',
-        'section_leader', 'priority',
+        'section_leader', 'priority','weight',
         'state', 'tags',
     ]
 
@@ -236,17 +253,23 @@ class SectionBaseView(object):
 @method_decorator(login_required, name='dispatch')
 class SectionCreateView(SectionBaseView, CreateView):
 
+    fields = [
+        'title', 'description',
+        'section_leader', 'priority','weight',
+        'state', 'tags',
+    ]
     def get_initial(self):
         return dict(section_leader=self.request.user.id, state='pl')
 
     def post(self, *args, **kwargs):
         data = ujson.loads(self.request.body)
         form = self.get_form_class()(data)
+        
         return self.form_valid(form)
 
     def form_valid(self, form):
-        form.instance.workspace = self.request.workspace
-
+        form.instance.workspace = Workspace.objects.get(pk=1)
+        form.instance.project = Project.objects.get(pk = int(self.request.GET.get('project')))
         response = super().form_valid(form)
 
         url = self.get_success_url()
@@ -288,15 +311,26 @@ class SectionList(BaseListView):
     filter_fields = dict(
         section_leader='section_leader__username',
         state='state__name__iexact',
-        label='tags__name__iexact'
+        label='tags__name__iexact',
+        project='project__title__iexact'
     )
 
-    select_related = ['section_leader', 'state']
+    select_related = ['section_leader', 'state', 'project']
     prefetch_related = ['tags']
 
     def get_context_data(self, **kwargs):
+        to_project = self.request.GET.get('to-project')
+        
         context = super().get_context_data(**kwargs)
         context['filters_form'] = SectionFilterForm(self.request.POST)
+        if to_project:
+            try:
+                project = Project.objects.get(pk=to_project)
+            except Project.DoesNotExist:
+                pass
+            else:
+                context['add_to'] = 'project'
+                context['add_to_object'] = project
         context['current_workspace'] = self.kwargs['workspace']
         return context
 

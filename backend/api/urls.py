@@ -34,10 +34,13 @@ urlpatterns = [
     # re_path(r'^health/', include('api.health_checks.urls')),
     path('', homepage ),
     path('signup/', views.signup, name='signup'),
-    path('login/', auth_views.LoginView.as_view(template_name='authentication/login.html', authentication_form=LoginForm), name='login'),
-    path('logout/', views.logout_user, name='logout'),
+    path('login/', views.loginView, name = 'login'),
+    path('login_user/', views.login_user, name = 'login_user'),
+    path('logout/', views.logout_user, name = 'logout'),
+    path('forgot_password/', auth_views.PasswordChangeView.as_view(template_name='registration/forgot_password.html'), name = 'forgot_password'),
     # User management
     re_path(r'users/', include('api.user.urls', namespace='users')),
+    re_path(r'notifications/', include('api.notification.urls', namespace='notifications')),
     # comments app
     re_path(r'^comments/', include('django_comments_xtd.urls')),
 

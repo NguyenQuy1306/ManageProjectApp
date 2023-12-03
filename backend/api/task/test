@@ -1,0 +1,40 @@
+    model = Project
+
+    filter_fields = None
+
+    select_related = ['onwner_id', 'title']
+
+    def get_context_data(self, **kwargs):
+        context['current_workspace'] = self.kwargs['workspace']
+        return context
+
+    def post(self, *args, **kwargs):
+        params = ujson.loads(self.request.body)
+
+        project_ids = [t[5:] for t in params.keys() if 'project-' in t]
+
+        if len(project_ids) > 0:
+            if params.get('remove') == 'yes':
+                remove_projects.delay(project_ids)
+
+            if params.get('duplicate') == 'yes':
+                duplicate_projects.delay(project_ids)
+
+            state = params.get('state')
+            if isinstance(state, list):
+                state = state[0]
+            if state:
+                project_set_state.delay(project_ids, state)
+
+            project_leader = params.get('project_leader')
+            if isinstance(project_leader, list):
+                project_leader = project_leader[0]
+            if project_leader:
+                project_set_project_leader.delay(project_ids, project_leader)
+
+        url = self.request.get_full_path()
+
+        if self.request.headers.get('X-Fetch') == 'true':
+            return JsonResponse(dict(url=url))
+        else:
+            return HttpResponseRedirect(url)

@@ -1,8 +1,11 @@
 from datetime import date
-
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from notifications.models import Notification
 from api.taskapp.celery import app
 
-from api.project.models import Project
+from api.project.models import Project, ProjectMember
 
 
 @app.task(ignore_result=True)
@@ -11,7 +14,6 @@ def update_state():
     Project.objects.filter(state=Project.STATE_UNSTARTED, ends_at__gte=date.today()).update(state=Project.STATE_STARTED)
     # move to state=done all projects that have finished
     Project.objects.exclude(state=Project.STATE_DONE).filter(ends_at__lt=date.today()).update(state=Project.STATE_DONE)
-
 
 @app.task(ignore_result=True)
 def duplicate_projects(project_ids):

@@ -19,6 +19,13 @@
           </li>
 				</ul>
 			</nav>
+          {% if form.subject.errors %}
+      <ol>
+        {% for error in form.subject.errors %}
+          <li><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+      </ol>
+    {% endif %}
 		</div>
 
 		<!-- Right side -->
@@ -84,4 +91,5 @@
       </div>
     </div>
   </form>
+  
 {% endblock %}

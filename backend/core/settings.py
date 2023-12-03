@@ -49,6 +49,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'notifications',
     'django_extensions',
     'watchman',
     'simple_history',
@@ -67,6 +68,7 @@ LOCAL_APPS = (
     'api',
     'api.user',  # custom users app
     'api.authentication',
+    'api.notification',
     # Your stuff: custom apps go here
     'api.workspace',
     'api.project',
@@ -94,6 +96,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ROOT_URLCONF = 'core.urls'
 APPS_DIR = os.path.join(SETTINGS_PATH, 'api')
 TEMPLATES = [
@@ -137,7 +140,7 @@ TEMPLATES = [
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(APPS_DIR, 'static')
-# STATICFILES_DIRS = [os.path.join(APPS_DIR, 'staticfiles'), ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'), ]
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # See: https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
