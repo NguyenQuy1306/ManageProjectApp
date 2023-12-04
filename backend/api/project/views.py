@@ -194,10 +194,22 @@ class ProjectList(BaseListView):
 
         if len(project_ids) > 0:
             if params.get('remove') == 'yes':
-                remove_projects.delay(project_ids)
+                for pk in project_ids:
+                    try:
+                        project = Project.objects.get(pk=pk)
+                    except Project.DoesNotExist:
+                        continue
+
+                    project.delete()
 
             if params.get('duplicate') == 'yes':
-                duplicate_projects.delay(project_ids)
+                for pk in project_ids:
+                    try:
+                        project = Project.objects.get(pk=pk)
+                    except Project.DoesNotExist:
+                        continue
+
+                    project.duplicate()
 
         url = self.request.get_full_path()
 

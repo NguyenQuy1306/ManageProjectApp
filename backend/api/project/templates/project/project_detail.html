@@ -193,7 +193,9 @@
       {% if group_by %}
         <h3 class="subtitle">{{ group_title }}</h3>
       {% endif %}
-      <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+      <div class="card">
+        <div class="card-content">
+        <table class="table  is-striped is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>
@@ -242,6 +244,8 @@
           {% endfor %}
         </tbody>
       </table>
+    </div>
+  </div>
     {% endfor %}
   </form>
 {% endblock %}

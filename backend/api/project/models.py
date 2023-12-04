@@ -14,7 +14,6 @@ from api.workspace.models import Workspace
 class Project(ModelWithProgress, ModelWithBudget):
     """
     """
-
     STATE_UNSTARTED = 0
     STATE_STARTED = 1
     STATE_DONE = 2
