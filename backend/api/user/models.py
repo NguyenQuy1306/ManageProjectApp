@@ -11,7 +11,8 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(blank=True, max_length=255)
+    first_name = models.CharField(blank=True, max_length=255)
+    last_name = models.CharField(blank=True, max_length=255)
     invitation_notification = models.ForeignKey(Notification, null=True, blank=True, on_delete=models.SET_NULL)      
     # def __str__(self):
     #     return self.username

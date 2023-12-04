@@ -51,7 +51,24 @@ class Project(ModelWithProgress, ModelWithBudget):
 
     def save(self, *args, **kwargs):
         self.slug=slugify(self.title)
-        super().save(*args, **kwargs)
+        is_new_project = not self.pk  # Check if it's a new project
+
+        super().save(*args, **kwargs)  # Call the original save method
+
+        if is_new_project:
+            # If it's a new project, add the owner to the members
+            project_owner_member, created = ProjectMember.objects.get_or_create(
+                user=self.owner,
+                project=self,
+                defaults={
+                    'salary': 0,
+                    'role': ProjectRoleChoices.PM,
+                    'bio': '',  # You may need to adjust other fields accordingly
+                    'skills': '',
+                    'working_hours_day': 8,
+                    'status': 'ACTIVE',
+                }
+            )
     def __str__(self):
         return self.title
 

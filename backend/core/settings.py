@@ -14,6 +14,10 @@ from pathlib import Path
 import os
 import re
 import datetime
+import pymysql
+
+pymysql.version_info = (2,2,0, 'final',0)
+pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
@@ -256,10 +260,21 @@ SIMPLE_JWT = {
 }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'protask',
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
+
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 AUTH_USER_MODEL = "user.User"
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']

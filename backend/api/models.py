@@ -16,18 +16,6 @@ class BaseModel(models.Model):
     def __str__(self):
         return self.title
 
-
-# class WeightChoices(models.IntegerChoices):
-#     LOW = 1, "Low"
-#     MEDIUM = 2, "Medium"
-#     HIGH = 3, "High"
-
-# class PriorityChoices(models.IntegerChoices):
-#     LOW = 1, "Low"
-#     NORMAL = 2, "Normal"
-#     HIGH = 3, "High"
-#     URGENT = 4, "Urgent"
-
 class ModelWithBudget(models.Model):
     class Meta:
         abstract = True
