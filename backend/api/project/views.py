@@ -12,12 +12,20 @@ from django.shortcuts import redirect
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, FormView
+
 from rest_framework import viewsets
+from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.response import Response
 
 from api.task.forms import TaskFilterForm, SectionFilterForm, TaskGroupByForm
 from api.task.tasks import task_set_assignee, task_set_state,section_set_state
 from api.workspace.models import Workspace
+
 from api.user.models import User
+from api.user.serializers import UserSerializer
 
 from ..utils import get_clean_next_url
 from .forms import ProjectGroupByForm, ProjectInviteForm
@@ -27,6 +35,16 @@ from .tasks import duplicate_projects, remove_projects, reset_project
 
 from notifications import models as notification_models
 
+
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+@api_view(['GET'])
+def UserList(request, *args, **kwargs):
+    qs = User.objects.all()
+    serializer = UserSerializer(qs, many = True)
+    
+    return Response(serializer.data, status = 200 )
 
 @login_required
 def accept_invitation(request, notification_id):
@@ -243,49 +261,6 @@ class ProjectBaseView(object):
         context['current_workspace'] = self.kwargs['workspace']
         return context
     
-@method_decorator(login_required, name='dispatch')
-class InviteProjectMemberView(ProjectBaseView, CreateView):
-
-    def post(self, *args, **kwargs):
-        data = ujson.loads(self.request.body)
-        form = self.get_form_class()(data)
-        return self.form_valid(form)
-
-    def form_valid(self, form):
-        project = self.get_project()
-        form.instance.workspace = Workspace.objects.get(pk=1)
-        email = form.cleaned_data['email']
-
-        # Check if the user with the provided email exists
-        user = User.objects.filter(email=email).first()
-
-        if user:
-            # Check if the user is already a member of the project
-            if not ProjectMember.objects.filter(project=project, user=user).exists():
-                # Add the user as a member
-                project_member = ProjectMember.objects.create(
-                    project=project,
-                    user=user,
-                    role=ProjectMember.MB,
-                    status=ProjectMember.ACTIVE
-                )
-
-                # Send invitation notification
-                project_member.send_invitation_notification()
-
-                messages.success(self.request, f"Invitation sent to {email}.")
-            else:
-                messages.warning(self.request, f"{email} is already a member of the project.")
-        else:
-            messages.warning(self.request, f"No user found with email {email}.")
-
-        return redirect(reverse_lazy('projects:project-detail', args=[str(project.id)]))
-
-    def form_invalid(self, form):
-        project = self.get_project()
-        messages.error(self.request, "Invalid form submission. Please check your input.")
-        return redirect(reverse_lazy('projects:project-detail', args=[str(project.id)]))
-
 
 @method_decorator(login_required, name='dispatch')
 class ProjectCreateView(ProjectBaseView, CreateView):

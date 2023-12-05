@@ -1,0 +1,9 @@
+{% extends 'project/base.html' %}
+
+{% block page_title %}Projects :: {{ current_workspace }}{% endblock %}
+
+{% block table_body_content %}
+  {% for project in object_list %}
+  <td>#{{ project.id }}</td>
+  {% endfor %}
+{% endblock %}

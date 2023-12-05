@@ -1,10 +1,12 @@
 {%extends 'base.html'%}
-
+{%load static%}
+{%block addition_css%}
+<link rel="stylesheet" href="{% static 'css/select.less' %}">
+<script defer src="{% static 'js/select.js' %}"></script>
+{%endblock%}
 {%block content%}
-<div class = 'row text-center'>
-    <div class ='col'>
-        <h1>Welcome to ProTask</h1>
-    </div>
+<div class="container">
+    <div id="select" ng-model=""></div>
 </div>
 
 {%endblock%}
