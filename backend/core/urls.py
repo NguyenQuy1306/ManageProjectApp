@@ -13,7 +13,7 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     re_path(settings.ADMIN_URL, admin.site.urls),
 
-    path('', include('api.urls'))
+    path('api/', include('api.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

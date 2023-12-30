@@ -8,18 +8,30 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.shortcuts import redirect
+from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import FilterSet
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, FormView
 
 from rest_framework import viewsets
-from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.parsers import JSONParser
+from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from rest_framework import status
+from rest_framework import generics
+from rest_framework import mixins
+from rest_framework import filters
+from rest_framework import permissions
+from rest_framework.decorators import action, api_view
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.response import Response
+from .serializers import *
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from api.task.forms import TaskFilterForm, SectionFilterForm, TaskGroupByForm
 from api.task.tasks import task_set_assignee, task_set_state,section_set_state
 from api.workspace.models import Workspace
@@ -71,6 +83,47 @@ def decline_invitation(request, notification_id):
     notification.delete()
 
     return redirect('your_success_redirect_view')
+class ListProjectView(viewsets.ModelViewSet):
+    # permission_classes = (ModelViewSetsPermission,)
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProjectSerializer
+    filter_backends = (
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    )
+    search_fields = ("floor","model_name")
+    ordering_fields = ("created_at",'pages_remaining',)
+    filter_fields = ("status",'model_name')
+    queryset = Project.objects.all_objects()
+
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     print("queryset -> ", queryset)
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer)
+
+    def update(self, request, *args, **kwargs):
+        return super(ListProjectView, self).update(request, *args, **kwargs)
+    # authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def all_objects(self,request):
+        projects = Project.objects.filter(owner=request.user)
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+    def get(self, request):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ProjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @method_decorator(login_required, name='dispatch')
 class ProjectDetailView(DetailView):
 

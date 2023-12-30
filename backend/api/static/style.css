@@ -4,14 +4,13 @@
 }
 
 a.navbar-brand {
-  vertical-align: middle;
+
   display: block;
   font-size: 20px;
-  margin-bottom: -10px;
 }
 
 li{
-  padding: 10px;
+  padding: 15px;
 }
 
 .form-group label{

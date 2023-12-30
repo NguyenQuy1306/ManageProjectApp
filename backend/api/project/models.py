@@ -10,7 +10,12 @@ from simple_history.models import HistoricalRecords
 
 from api.models import ModelWithProgress, ModelWithBudget
 from api.workspace.models import Workspace
+class ProjectManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()
 
+    def all_objects(self):
+        return super().get_queryset()
 class Project(ModelWithProgress, ModelWithBudget):
     """
     """
@@ -47,7 +52,7 @@ class Project(ModelWithProgress, ModelWithBudget):
     ends_at = models.DateField(db_index=True, null=True, blank=True)
 
     history = HistoricalRecords()
-
+    objects= ProjectManager()
     def save(self, *args, **kwargs):
         self.slug=slugify(self.title)
         is_new_project = not self.pk  # Check if it's a new project

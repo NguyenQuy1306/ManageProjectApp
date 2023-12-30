@@ -8,7 +8,7 @@ class ProjectMemberSerializer(serializers.ModelSerializer):
         
 
 class ProjectSerializer(serializers.ModelSerializer):
-    members = ProjectMemberSerializer(many=True, read_only=True)
+
     class Meta:
         model= Project
         fields = ['id',	'budget', 'budget_spend','title','description',	'created_at',

@@ -32,12 +32,8 @@ urlpatterns = [
     # # health checks
     # re_path(r'^health-check/', include('watchman.urls')),
     # re_path(r'^health/', include('api.health_checks.urls')),
-    path('', homepage ),
-    path('signup/', views.signup, name='signup'),
-    path('login/', views.loginView, name = 'login'),
-    path('login_user/', views.login_user, name = 'login_user'),
-    path('logout/', views.logout_user, name = 'logout'),
-    path('forgot_password/', auth_views.PasswordChangeView.as_view(template_name='registration/forgot_password.html'), name = 'forgot_password'),
+    path('', include('api.authentication.urls')),
+    path('projects/',include('api.project.urls')),
     # User management
     # re_path(r'users/', include('api.user.urls', namespace='users')),
     re_path(r'notifications/', include('api.notification.urls', namespace='notifications')),
