@@ -21,7 +21,7 @@ from .views import homepage
 router = DefaultRouter()
 # router.register(r'workspaces', workspaces_views.WorkspaceViewSet)
 # # router.register(r'epics', tasks_views.EpicViewSet)
-# router.register(r'projects', projects_views.ProjectViewSet)
+router.register(r'projects', projects_views.ListProjectView)
 # # router.register(r'tasks', tasks_views.StoryViewSet)
 # # router.register(r'tasks', tasks_views.TaskViewSet)
 
@@ -33,7 +33,8 @@ urlpatterns = [
     # re_path(r'^health-check/', include('watchman.urls')),
     # re_path(r'^health/', include('api.health_checks.urls')),
     path('', include('api.authentication.urls')),
-    path('projects/',include('api.project.urls')),
+    re_path(r'^v1/', include(router.urls)),
+    # path('projects/',include('api.project.urls')),
     # User management
     # re_path(r'users/', include('api.user.urls', namespace='users')),
     re_path(r'notifications/', include('api.notification.urls', namespace='notifications')),

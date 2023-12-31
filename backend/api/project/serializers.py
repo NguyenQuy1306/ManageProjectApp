@@ -6,7 +6,10 @@ class ProjectMemberSerializer(serializers.ModelSerializer):
         model = ProjectMember
         fields= ['id, salary, bio, working_hours_day, role, status, project_id, user_id']
         
-
+class UpdateProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['budget', 'title']
 class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:

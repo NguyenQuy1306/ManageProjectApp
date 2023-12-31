@@ -47,42 +47,52 @@ from .tasks import duplicate_projects, remove_projects, reset_project
 
 from notifications import models as notification_models
 
+class ProjectDetailView(APIView):
+    # authentication_classes = [TokenAuthentication]
+    authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
-def is_ajax(request):
-    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+    def get_object(self, id):
+        try:
+            return Project.objects.get(id=id)
+        except Project.DoesNotExist:
+            return None
 
-@api_view(['GET'])
-def UserList(request, *args, **kwargs):
-    qs = User.objects.all()
-    serializer = UserSerializer(qs, many = True)
-    
-    return Response(serializer.data, status = 200 )
-
-@login_required
-def accept_invitation(request, notification_id):
-    notification = get_object_or_404(Notification, id=notification_id)
-    project_member = get_object_or_404(ProjectMember, invitation_notification=notification)
-
-    # Handle the acceptance logic
-    # ...
-
-    # Delete the notification once processed
-    notification.delete()
-
-    return redirect('your_success_redirect_view')
-
-@login_required
-def decline_invitation(request, notification_id):
-    notification = get_object_or_404(Notification, id=notification_id)
-    project_member = get_object_or_404(ProjectMember, invitation_notification=notification)
-
-    # Handle the decline logic
-    # ...
-
-    # Delete the notification once processed
-    notification.delete()
-
-    return redirect('your_success_redirect_view')
+    def get(self, request, pk):
+        project = self.get_object(id = pk)
+        if project:
+            serializer = ProjectSerializer(project)
+            return Response(serializer.data)
+        return Response({"detail": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+    def update(self, request, pk):
+        project = self.get_object(id=pk)
+        if project:
+            # Use a serializer that only allows updating 'status' and 'pages_remaining'
+            serializer = UpdateProjectSerializer(project, data=request.data, partial=True)
+            if serializer.is_valid():
+                user = request.user
+                serializer.save(modified_by= user)
+                
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"detail": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+    def put(self, request, pk):
+        project = self.get_object(id = pk)
+        if project:
+            serializer = ProjectSerializer(project, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"detail": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, pk):
+        project = self.get_object(id = pk)
+        if project:
+            # Change status to Offline instead of deleting
+            project.status = Project.OFFLINE
+            project.save()
+            return Response({"detail": "Project set to Offline"}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"detail": "Project not found"}, status=status.HTTP_404_NOT_FOUND)
 class ListProjectView(viewsets.ModelViewSet):
     # permission_classes = (ModelViewSetsPermission,)
     authentication_classes = [TokenAuthentication, SessionAuthentication, BasicAuthentication]
@@ -110,7 +120,7 @@ class ListProjectView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def all_objects(self,request):
-        projects = Project.objects.filter(owner=request.user)
+        projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
     def get(self, request):
@@ -124,7 +134,7 @@ class ListProjectView(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-@method_decorator(login_required, name='dispatch')
+
 class ProjectDetailView(DetailView):
 
     model = Project
@@ -189,7 +199,6 @@ class ProjectDetailView(DetailView):
             return JsonResponse(dict(url=url))
         else:
             return HttpResponseRedirect(url)
-@method_decorator(login_required, name='dispatch')
 class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
@@ -252,7 +261,6 @@ class BaseListView(ListView):
         return qs
 
 
-@method_decorator(login_required, name='dispatch')
 class ProjectList(BaseListView):
     model = Project
     filter_fields = {}
@@ -314,8 +322,6 @@ class ProjectBaseView(object):
         context['current_workspace'] = self.kwargs['workspace']
         return context
     
-
-@method_decorator(login_required, name='dispatch')
 class ProjectCreateView(ProjectBaseView, CreateView):
 
     def post(self, *args, **kwargs):
@@ -329,7 +335,6 @@ class ProjectCreateView(ProjectBaseView, CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
 class ProjectUpdateView(ProjectBaseView, UpdateView):
 
     def post(self, *args, **kwargs):
